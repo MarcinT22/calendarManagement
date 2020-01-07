@@ -1,9 +1,7 @@
 <template>
     <div>
-        Register
-        <form @submit.prevent="register" method="post">
-            <label for="name">Name</label>
-            <input type="text" id="name" v-model="name" />
+        Login
+        <form @submit.prevent="login" method="post">
             <label for="email">E-mail</label>
             <input type="email" id="email" v-model="email" />
             <label for="password">Password</label>
@@ -14,38 +12,39 @@
 </template>
 
 <script>
+
     export default {
-        name: "Register",
+        name: "Login",
         data(){
-            return {
-                name:'',
-                email:'',
-                password:'',
+            return{
+                email:null,
+                password:null,
                 error:false,
-                errors:{},
-                success:false
+
             }
         },
+
         methods:{
-            register(){
+            login(){
+
                 var app = this
-                this.$auth.register({
-                    data:{
-                        name:app.name,
+                this.$auth.login({
+                    params:{
                         email:app.email,
-                        password:app.password
+                        password: app.password
                     },
-                    success: function(){
-                        app.success = true
-                    },
+                    success:function(){},
                     error: function(r){
                         app.error = true;
                         app.errors = r.response.data.errors;
+                        console.log(r.response)
                     },
-                    redirect:null
+                    rememberMe:true,
+                    redirect:'/',
+                    fetchUser:true
                 })
             }
-        }
+        },
 
     }
 </script>
