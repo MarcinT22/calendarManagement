@@ -30,3 +30,13 @@ Route::get('event/{event}', 'Api\EventController@show');
 Route::post('event', 'Api\EventController@store');
 Route::put('event/{event}', 'Api\EventController@update');
 Route::delete('event/{event}', 'Api\EventController@delete');
+
+
+Route::post('auth/register','Api\AuthController@register');
+
+Route::post('auth/login','Api\AuthController@login');
+Route::group(['middleware'=>'jwt.auth'], function(){
+    Route::get('auth/user','Api\AuthController@user');
+    Route::get('auth/refresh', 'Api\AuthController@refresh');
+    Route::post('auth/logout','Api\AuthController@logout');
+});
