@@ -18,15 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('calendar', 'EventController@index');
-Route::get('calendar/{calendar}', 'CalendarController@show');
-Route::post('calendar', 'CalendarController@store');
-Route::put('calendar/{calendar}', 'CalendarController@update');
-Route::delete('calendar/{calendar}', 'CalendarController@delete');
+Route::get('calendar', 'Api\CalendarController@index');
+Route::get('calendar/{calendar}', 'Api\CalendarController@show');
+Route::post('calendar', 'Api\CalendarController@store');
+Route::put('calendar/{calendar}', 'Api\CalendarController@update');
+Route::delete('calendar/{calendar}', 'Api\CalendarController@delete');
 
 
-Route::get('event', 'EventController@index');
-Route::get('event/{event}', 'EventController@show');
-Route::post('event', 'EventController@store');
-Route::put('event/{event}', 'EventController@update');
-Route::delete('event/{event}', 'EventController@delete');
+Route::get('event', 'Api\EventController@index');
+Route::get('event/{event}', 'Api\EventController@show');
+Route::post('event', 'Api\EventController@store');
+Route::put('event/{event}', 'Api\EventController@update');
+Route::delete('event/{event}', 'Api\EventController@delete');
