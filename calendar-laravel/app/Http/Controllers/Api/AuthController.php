@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Calendar;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Http\FormRequest;
@@ -15,11 +16,16 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+
         $user = new User;
         $user->email = $request->email;
         $user->name = $request->name;
         $user->password = bcrypt($request->password);
+        $calendar = new Calendar;
+        $calendar->save();
+        $user->calendar_id = $calendar->id;
         $user->save();
+
 
         return response([
             'status' => 'success',

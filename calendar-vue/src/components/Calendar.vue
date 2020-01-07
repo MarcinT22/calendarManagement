@@ -1,6 +1,8 @@
 <template>
     <div class="calendar">
-        Terminarz
+        Terminarz {{$auth.user().name}}
+
+
         <fullcalendar
                 :plugins="calendarPlugins"
                 :header="calendarHeader"
@@ -35,7 +37,6 @@
     import ListPlugin from '@fullcalendar/list'
     import axios from 'axios'
 
-    const API_URL = 'http://127.0.0.1:8000/api/event';
 
     export default {
         name: "Calendar",
@@ -63,13 +64,15 @@
                 startTime: '08:00',
                 endTime: '16:00',
             },
-            events: []
+            events: [],
+
         }),
         components: {
             Fullcalendar
         },
         methods: {
             select(arg) {
+
                 var title = prompt('Wprowadz tytul')
                 var event = {
                     'title': title,
@@ -78,39 +81,48 @@
                 }
                 this.events.push(event)
 
-                axios.post(API_URL, {
+                axios.post('/event', {
                     title: title,
                     description: 'gfd',
                     start: arg.start,
-                    end: arg.end
+                    end: arg.end,
+                    calendar_id:this.$route.params.id
+
                 }).then((response) => {
+                    console.log('dodano')
                 })
                     .catch((e) => {
                         console.error(e)
                     })
             },
             update(arg) {
+
                 const event = {
                     title: arg.event.title,
                     description: 'gfd',
                     start: arg.event.start,
                     end: arg.event.end
                 }
-                axios.put(API_URL + '/' + arg.event.id, event)
+                axios.put('/event/' + arg.event.id, event)
                     .then(response => console.log('update'));
             }
 
 
         },
         created() {
-            axios.get(API_URL)
+
+
+            axios.get('/events/'+this.$route.params.id)
                 .then(response => {
                     // JSON responses are automatically parsed.
                     this.events = response.data
+                    console.log(response.data)
                 })
                 .catch(e => {
                     console.log('error')
                 })
+
+
         }
     }
 </script>
@@ -120,8 +132,8 @@
         max-width: 1200px;
         max-height: 500px;
 
-        .fc{
-            padding-bottom:50px;
+        .fc {
+            padding-bottom: 50px;
         }
 
         .fc-event {

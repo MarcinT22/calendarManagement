@@ -28,7 +28,7 @@ const router = new VueRouter({
       }
     },
     {
-      path:'/calendar',
+      path:'/calendar/:id',
       name:'calendar',
       component:Calendar,
       meta: {
