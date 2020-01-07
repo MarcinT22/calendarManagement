@@ -38,4 +38,9 @@ class EventController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getByCalendar($calendar)
+    {
+        return Event::where('calendar_id',$calendar)->get();
+    }
 }

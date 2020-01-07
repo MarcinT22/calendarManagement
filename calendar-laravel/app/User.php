@@ -57,4 +57,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function calendar()
+    {
+        return $this->hasOne('App\Calendar');
+    }
 }

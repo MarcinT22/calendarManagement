@@ -21,6 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('end');
             $table->string('backgroundColor')->nullable();
             $table->boolean('allDay')->default(false);
+            $table->integer('calendar_id');
             $table->timestamps();
         });
     }
