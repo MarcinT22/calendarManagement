@@ -1,13 +1,23 @@
 <template>
-    <div>
-        Login
-        <form @submit.prevent="login" method="post">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" v-model="email" />
-            <label for="password">Password</label>
-            <input type="password" id="password" v-model="password" />
-            <button type="submit">Submit</button>
-        </form>
+    <div class="login">
+        <div class="login__content">
+            <h1>
+                Logowanie
+            </h1>
+            <form @submit.prevent="login" method="post" class="form">
+                <div class="form__field">
+                    <i class="fas fa-user form__icon"></i><input type="email" id="email" v-model="email" class="form__input form__input--icon" placeholder="E-mail"/>
+                </div>
+                <div class="form__field">
+                    <i class="fas fa-lock form__icon"></i><input type="password" id="password" v-model="password" class="form__input form__input--icon" placeholder="Hasło"/>
+                </div>
+                <div class="form__error" v-if="error">
+                    {{errorMessage}}
+                </div>
+                <button type="submit" v-if="!isLoading" class="form__button">Zaloguj</button>
+                <div class="loading" v-if="isLoading"></div>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -15,40 +25,47 @@
 
     export default {
         name: "Login",
-        data(){
-            return{
-                email:null,
-                password:null,
-                error:false,
-
+        data() {
+            return {
+                email: null,
+                password: null,
+                error: false,
+                errorMessage:'',
+                isLoading:false
             }
         },
 
-        methods:{
-            login(){
-
+        methods: {
+            login() {
+                this.isLoading = true;
+                this.error = false;
                 var app = this
                 this.$auth.login({
-                    params:{
-                        email:app.email,
+                    params: {
+                        email: app.email,
                         password: app.password
                     },
-                    success:function(){},
-                    error: function(r){
+                    success: function () {
+                        app.error = false;
+                    },
+                    error: function (r) {
+                        this.isLoading = false;
                         app.error = true;
                         app.errors = r.response.data.errors;
-                        console.log(r.response)
+                        this.errorMessage = r.response.data.message
                     },
-                    rememberMe:true,
-                    redirect:'/',
-                    fetchUser:true
+                    rememberMe: true,
+                    redirect: '/home',
+                    fetchUser: true
                 })
             }
         },
 
     }
 </script>
-
-<style scoped>
-
+<style lang="scss" scoped>
+    @import "../assets/scss/login";
+    @import "../assets/scss/form";
+    @import "../assets/scss/fontawesome";
 </style>
+
