@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Event;
 use App\Http\Controllers\Controller;
 
 use App\Calendar;
@@ -15,7 +16,8 @@ class CalendarController extends Controller
 
     public function show(Calendar $calendar)
     {
-        return $calendar;
+        $events = Event::where('calendar_id',$calendar->id)->get();
+        return response()->json($events, 201);
     }
 
     public function store(Request $request)
