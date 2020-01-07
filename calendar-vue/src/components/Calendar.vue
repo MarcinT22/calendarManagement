@@ -78,18 +78,20 @@
                     'title': title,
                     'start': arg.start,
                     'end': arg.end,
+                    'calendar_id': this.$route.params.id
                 }
-                this.events.push(event)
+
 
                 axios.post('/event', {
                     title: title,
                     description: 'gfd',
                     start: arg.start,
                     end: arg.end,
-                    calendar_id:this.$route.params.id
+                    calendar_id: this.$route.params.id
 
                 }).then((response) => {
                     console.log('dodano')
+                    this.getEvents()
                 })
                     .catch((e) => {
                         console.error(e)
@@ -101,28 +103,36 @@
                     title: arg.event.title,
                     description: 'gfd',
                     start: arg.event.start,
-                    end: arg.event.end
+                    end: arg.event.end,
+                    calendar_id: arg.event.extendedProps.calendar_id
                 }
                 axios.put('/event/' + arg.event.id, event)
-                    .then(response => console.log('update'));
+                    .then((response) => {
+                        console.log('update')
+                        this.getEvents()
+                    })
+                    .catch((e) => {
+                        console.error(e)
+                    })
+            },
+
+            getEvents(){
+                axios.get('/calendar/' + this.$route.params.id)
+                    .then(response => {
+                        // console.log(response.data)
+                        // JSON responses are automatically parsed.
+                        this.events = response.data
+                        console.log(response.data)
+                    })
+                    .catch(e => {
+                        console.log('error')
+                    })
             }
 
 
         },
         created() {
-
-
-            axios.get('/events/'+this.$route.params.id)
-                .then(response => {
-                    // JSON responses are automatically parsed.
-                    this.events = response.data
-                    console.log(response.data)
-                })
-                .catch(e => {
-                    console.log('error')
-                })
-
-
+            this.getEvents()
         }
     }
 </script>
