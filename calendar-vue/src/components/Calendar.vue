@@ -21,7 +21,7 @@
                 height="auto"
                 :business-hours="businessHours"
         />
-
+        <Modal ref="modal"></Modal>
     </div>
 </template>
 
@@ -36,7 +36,7 @@
     import InteractionPlugin from '@fullcalendar/interaction'
     import ListPlugin from '@fullcalendar/list'
     import axios from 'axios'
-
+    import Modal from '@/components/Modal'
 
     export default {
         name: "Calendar",
@@ -68,11 +68,12 @@
 
         }),
         components: {
-            Fullcalendar
+            Fullcalendar,
+            Modal
         },
         methods: {
             select(arg) {
-
+                this.$refs.modal.show()
                 var title = prompt('Wprowadz tytul')
                 var event = {
                     'title': title,
