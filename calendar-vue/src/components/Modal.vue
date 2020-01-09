@@ -4,7 +4,7 @@
             <div class="modal__block">
                 <div class="modal__header">
                     <i class="fas fa-thumbtack"></i> Nowy wpis
-                    <a href="#" title="Zamknij" class="modal__close">
+                    <a href="#" @click.prevent="close" title="Zamknij" class="modal__close">
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
@@ -13,14 +13,14 @@
                     <form @submit.prevent="" method="post" class="modal__form">
                         <div class="modal__field">
                             <label for="title" class="modal__label">Tytuł:</label>
-                            <input type="text" class="modal__input" id="title">
+                            <input type="text" class="modal__input" v-model="title" id="title">
                         </div>
                         <div class="modal__field">
                             <label for="description" class="modal__label">Opis:</label>
-                            <textarea class="modal__textarea" id="description"></textarea>
+                            <textarea class="modal__textarea" id="description"  v-model="description"></textarea>
                         </div>
                         <div class="modal__buttons">
-                            <button type="submit" class="modal__button">Zapisz</button>
+                            <button type="submit" class="modal__button" @click="this.save">Zapisz</button>
                             <button type="submit" @click="close" class="modal__button">Zamknij</button>
                         </div>
                     </form>
@@ -33,9 +33,13 @@
 <script>
     export default {
         name: "Modal",
+        props:['save'],
         data(){
             return{
-                isShow:true
+                isShow:false,
+                title:'',
+                description:'',
+
             }
         },
         methods:{

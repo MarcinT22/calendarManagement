@@ -21,7 +21,7 @@
                 height="auto"
                 :business-hours="businessHours"
         />
-        <Modal ref="modal"></Modal>
+        <Modal ref="modal" :save="save"></Modal>
     </div>
 </template>
 
@@ -65,6 +65,7 @@
                 endTime: '16:00',
             },
             events: [],
+            event:[],
 
         }),
         components: {
@@ -74,21 +75,23 @@
         methods: {
             select(arg) {
                 this.$refs.modal.show()
-                var title = prompt('Wprowadz tytul')
-                var event = {
-                    'title': title,
+
+               this.event = {
                     'start': arg.start,
                     'end': arg.end,
-                    'calendar_id': this.$route.params.id
                 }
 
 
+            },
+
+            save() {
+
                 axios.post('/event', {
-                    title: title,
-                    description: 'gfd',
-                    start: arg.start,
-                    end: arg.end,
-                    calendar_id: this.$route.params.id
+                    'title': this.$refs.modal.$data.title,
+                    'description':this.$refs.modal.$data.title,
+                    'start': this.event.start,
+                    'end': this.event.end,
+                    'calendar_id': this.$route.params.id
 
                 }).then((response) => {
                     console.log('dodano')
@@ -98,6 +101,7 @@
                         console.error(e)
                     })
             },
+
             update(arg) {
 
                 const event = {
