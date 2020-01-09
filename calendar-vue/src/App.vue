@@ -1,15 +1,26 @@
 <template>
-  <div id="app">
-    <router-view></router-view>
-  </div>
+    <div  :class="{'login-background':!$auth.check() }">
+        <Menu></Menu>
+        <router-view></router-view>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+
+    import Menu from "./components/Menu";
+    export default {
+        name: 'App',
+        components: {Menu},
+    }
 </script>
 
-<style>
+<style  lang="scss">
+   html,body{
+       padding:0;
+       margin:0;
+   }
+</style>
+<style lang="scss">
+    @import "assets/scss/style";
 
 </style>

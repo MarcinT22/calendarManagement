@@ -21,6 +21,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->name = $request->name;
         $user->password = bcrypt($request->password);
+        $user->roles = $request->roles;
         $calendar = new Calendar;
         $calendar->save();
         $user->calendar_id = $calendar->id;
@@ -30,24 +31,25 @@ class AuthController extends Controller
         return response([
             'status' => 'success',
             'data' => $user
-        ],200);
+        ], 200);
     }
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
-        $user = $request->only('email','password');
+        $user = $request->only('email', 'password');
 
-        if ( !$token = JWTAuth::attempt($user)){
+        if (!$token = JWTAuth::attempt($user)) {
             return response([
-               'status'=>'error',
-               'error' => 'invalid.users',
-                'msg' => 'Invalid User'
+                'status' => 'error',
+                'error' => 'invalid.user',
+                'message' => 'Logowanie nie powiodło się.'
             ], 400);
         }
 
         return response([
-           'status'=>'success'
-        ])->header('Authorization',$token);
+            'status' => 'success'
+        ])->header('Authorization', $token);
     }
 
     public function user(Request $request)
@@ -55,15 +57,16 @@ class AuthController extends Controller
         $user = User::find(Auth::user()->id);
 
         return response([
-           'status'=>'success',
-           'data' => $user
+            'status' => 'success',
+            'data' => $user
         ]);
     }
 
-    public function refresh(){
+    public function refresh()
+    {
 
         return response([
-            'status'=>'success'
+            'status' => 'success'
         ]);
     }
 
@@ -73,8 +76,8 @@ class AuthController extends Controller
         JWTAuth::invalidate();
 
         return response([
-           'status'=>'success',
-           'msg' => 'Wylogowano'
+            'status' => 'success',
+            'msg' => 'Wylogowano'
         ], 200);
     }
 }

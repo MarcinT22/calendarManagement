@@ -8,6 +8,8 @@
             <input type="email" id="email" v-model="email" />
             <label for="password">Password</label>
             <input type="password" id="password" v-model="password" />
+            <label for="isRoot">Administrator</label>
+            <input type="checkbox" id="isRoot"  v-model="roles">
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -21,6 +23,7 @@
                 name:'',
                 email:'',
                 password:'',
+                roles:false,
                 error:false,
                 errors:{},
                 success:false
@@ -33,16 +36,18 @@
                     data:{
                         name:app.name,
                         email:app.email,
-                        password:app.password
+                        password:app.password,
+                        roles: app.roles
                     },
                     success: function(){
                         app.success = true
+                        console.log('dodano')
                     },
                     error: function(r){
                         app.error = true;
                         app.errors = r.response.data.errors;
                     },
-                    redirect:null
+                    redirect:'/'
                 })
             }
         }

@@ -20,7 +20,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home',
       component: Home,
       meta: {
@@ -40,11 +40,12 @@ const router = new VueRouter({
       name: 'register',
       component: Register,
       meta: {
-        auth: false
+        auth: {roles: 1}
+
       }
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
       meta: {

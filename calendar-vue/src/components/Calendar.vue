@@ -109,7 +109,7 @@
                 axios.put('/event/' + arg.event.id, event)
                     .then((response) => {
                         console.log('update')
-                        this.getEvents()
+                        // this.getEvents()
                     })
                     .catch((e) => {
                         console.error(e)
