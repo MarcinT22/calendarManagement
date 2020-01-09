@@ -45,6 +45,8 @@
         methods:{
             close(){
                 this.isShow=!this.isShow
+                this.title=''
+                this.description=''
             },
             show(){
                 this.isShow=!this.isShow
