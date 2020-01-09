@@ -85,7 +85,7 @@
             },
 
             save() {
-
+                this.$refs.modal.$data.isLoading=true;
                 axios.post('/event', {
                     'title': this.$refs.modal.$data.title,
                     'description':this.$refs.modal.$data.title,
@@ -94,7 +94,10 @@
                     'calendar_id': this.$route.params.id
 
                 }).then((response) => {
-                    console.log('dodano')
+                    this.$refs.modal.$data.isLoading=false;
+                    this.$refs.modal.$data.isMessage=true;
+                    this.$refs.modal.$data.message='Dodano';
+
                     this.getEvents()
                 })
                     .catch((e) => {

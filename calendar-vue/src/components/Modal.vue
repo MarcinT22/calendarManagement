@@ -19,7 +19,11 @@
                             <label for="description" class="modal__label">Opis:</label>
                             <textarea class="modal__textarea" id="description"  v-model="description"></textarea>
                         </div>
-                        <div class="modal__buttons">
+                        <div class="modal__bottom">
+                            <div class="modal__loading" v-if="isLoading"></div>
+                            <div class="modal__message" v-if="isMessage">
+                                {{message}}
+                            </div>
                             <button type="submit" class="modal__button" @click="this.save">Zapisz</button>
                             <button type="submit" @click="close" class="modal__button">Zamknij</button>
                         </div>
@@ -36,9 +40,12 @@
         props:['save'],
         data(){
             return{
-                isShow:false,
+                isShow:true,
                 title:'',
                 description:'',
+                isLoading:false,
+                isMessage:false,
+                message:''
 
             }
         },
@@ -123,6 +130,7 @@
             background: #fff;
             box-sizing: border-box;
             padding: 15px;
+            position: relative;
 
         }
 
@@ -164,7 +172,7 @@
         }
 
 
-        &__buttons{
+        &__bottom{
             display: flex;
             justify-content: flex-end;
             padding-top:10px;
@@ -185,5 +193,33 @@
                 }
             }
         }
+
+        &__loading{
+            width:15px;
+            height:15px;
+            border:4px solid #ccc;
+            border-radius: 100%;
+            position: absolute;
+            bottom:15px;
+            left:15px;
+            border-top-color:#040e2f;
+            animation: loading 0.5s ease-in-out infinite;
+        }
+
+
+        &__message{
+            text-align: left;
+            font-size:14px;
+            font-weight: bold;
+            color:#040e2f;
+            position: absolute;
+            left:15px;
+            bottom:15px;
+        }
+    }
+
+    @keyframes loading {
+        from {transform:rotate(0)}
+        to {transform:rotate(360deg)}
     }
 </style>
