@@ -6,7 +6,28 @@
   height: 100%;
   position: relative;
   z-index: 1;
-  margin:0 15px;
+
+
+  &--background{
+    background: url('../assets/images/background.jpg')no-repeat;
+    background-size:cover;
+    background-position: center center;
+    height:100vh;
+    position: relative;
+    padding:0 15px;
+
+    &::after{
+      content:'';
+      display: block;
+      position: fixed;
+      top:0;
+      right:0;
+      bottom:0;
+      left:0;
+      background:rgba(0,0,0,0.4);
+      z-index: 0;
+    }
+  }
 
 
   h1 {
@@ -27,6 +48,8 @@
     box-shadow: 5px 5px 10px 0 rgba(100, 100, 100, 0.5);
     padding: 50px 20px;
     box-sizing: border-box;
+    z-index: 1;
+
 
   }
 

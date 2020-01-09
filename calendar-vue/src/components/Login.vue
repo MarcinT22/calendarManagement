@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div class="login login--background">
         <div class="login__content">
             <h1>
                 Logowanie

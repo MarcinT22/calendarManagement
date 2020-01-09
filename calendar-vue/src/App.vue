@@ -1,5 +1,5 @@
 <template>
-    <div  :class="{'login-background':!$auth.check() }">
+    <div>
         <Menu></Menu>
         <router-view></router-view>
     </div>
@@ -21,6 +21,7 @@
    }
 </style>
 <style lang="scss">
+    @import "assets/scss/fonts";
     @import "assets/scss/style";
 
 </style>
