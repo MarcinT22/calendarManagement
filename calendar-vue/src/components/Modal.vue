@@ -215,6 +215,7 @@
             position: absolute;
             left:15px;
             bottom:15px;
+            
         }
     }
 
