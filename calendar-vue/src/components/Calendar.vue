@@ -25,7 +25,7 @@
                 :slot-label-format="slotLabelFormat"
 
         />
-        <EventModal ref="eventModal" :save="save" :edit="edit"></EventModal>
+        <EventModal ref="eventModal" :save="save" :edit="edit" :delete="deleteEvent"></EventModal>
     </div>
 </template>
 
@@ -120,7 +120,7 @@
 
                 })
                     .catch((e) => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie zapisano wpisu');
                         this.$refs['eventModal'].$data.isLoading = false;
                     })
             },
@@ -176,10 +176,11 @@
 
                     })
                     .catch((e) => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie zapisano wpisu');
                         this.$refs['eventModal'].$data.isLoading = false;
                     })
             },
+
 
             getEvents() {
                 axios.get('/calendar/' + this.$route.params.id)
@@ -188,6 +189,24 @@
                     })
                     .catch(e => {
                         this.$alertify.error(e);
+                    })
+            },
+
+            deleteEvent(){
+                this.$refs['eventModal'].$data.isLoading = true;
+                axios.delete('/event/' + this.event.id)
+                    .then((response) => {
+                        this.getEvents()
+                        setTimeout(() => {
+                            this.$alertify.success('Usunięto wpis');
+                            this.$refs['eventModal'].close()
+                            this.$refs['eventModal'].$data.isLoading = false;
+                        }, 500);
+
+                    })
+                    .catch((e) => {
+                        this.$alertify.error('Nie usunięto wpisu');
+                        this.$refs['eventModal'].$data.isLoading = false;
                     })
             }
 

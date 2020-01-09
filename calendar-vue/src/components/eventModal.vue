@@ -22,12 +22,14 @@
                         <div class="modal__bottom">
                             <div class="modal__loading" v-if="isLoading"></div>
                             <template v-if="method=='new'">
-                                <button type="submit" class="modal__button" v-if="!isLoading" @click="this.save">
-                                    Zapisz
+                                <button type="submit" class="modal__button modal__button--save" v-if="!isLoading" @click="this.save">
+                                    <i class="far fa-save"></i> Zapisz
                                 </button>
                             </template>
                             <template v-if="method=='edit'">
-                                <button type="submit" class="modal__button" v-if="!isLoading" @click="this.edit">Zaaktualizuj
+                                <button type="submit" class="modal__button modal__button--delete" v-if="!isLoading"  @click="this.delete"><i class="fas fa-trash-alt"></i> Usuń
+                                </button>
+                                <button type="submit" class="modal__button modal__button--save" v-if="!isLoading" @click="this.edit"><i class="far fa-save"></i> Zaktualizuj
                                 </button>
                             </template>
                         </div>
@@ -42,7 +44,7 @@
 
     export default {
         name: "AddEventModal",
-        props: ['save','edit','event'],
+        props: ['save','edit', 'delete'],
         data() {
             return {
                 header: '',
@@ -56,8 +58,10 @@
         methods: {
             close() {
                 this.isShow = !this.isShow
-                this.title = ''
-                this.description = ''
+                setTimeout(() => {
+                    this.title = ''
+                    this.description = ''
+                }, 500);
             },
             show(header, method) {
                 this.isShow = !this.isShow

@@ -109,20 +109,32 @@
     align-items: center;
     padding-top:10px;
 
-    button{
-      outline:none;
-      cursor: pointer;
+
+  }
+
+  &__button{
+    outline:none;
+    cursor: pointer;
+    color:#fff;
+    transition:background 0.3s ease-in-out;
+    font-family: 'Open Sans', sans-serif;
+    border:0;
+    padding:5px 10px;
+    font-size:14px;
+    margin-left:10px;
+    background:#666;
+
+    &:hover{
+      background: #040e2f;
+    }
+
+    &--delete{
       background: #ab2626;
-      color:#fff;
-      transition:background 0.3s ease-in-out;
-      font-family: 'Open Sans', sans-serif;
-      border:0;
-      padding:5px 10px;
-      font-size:14px;
-      margin-left:10px;
-      &:hover{
-        background: #1d0135;
-      }
+
+    }
+
+    &--save{
+      background: #108a29;
     }
   }
 
