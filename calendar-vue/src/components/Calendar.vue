@@ -21,7 +21,7 @@
                 height="auto"
                 :business-hours="businessHours"
         />
-
+        <Modal ref="modal" :save="save"></Modal>
     </div>
 </template>
 
@@ -36,7 +36,7 @@
     import InteractionPlugin from '@fullcalendar/interaction'
     import ListPlugin from '@fullcalendar/list'
     import axios from 'axios'
-
+    import Modal from '@/components/Modal'
 
     export default {
         name: "Calendar",
@@ -65,38 +65,46 @@
                 endTime: '16:00',
             },
             events: [],
+            event:[],
 
         }),
         components: {
-            Fullcalendar
+            Fullcalendar,
+            Modal
         },
         methods: {
             select(arg) {
+                this.$refs.modal.show()
 
-                var title = prompt('Wprowadz tytul')
-                var event = {
-                    'title': title,
+               this.event = {
                     'start': arg.start,
                     'end': arg.end,
-                    'calendar_id': this.$route.params.id
                 }
 
 
+            },
+
+            save() {
+                this.$refs.modal.$data.isLoading=true;
                 axios.post('/event', {
-                    title: title,
-                    description: 'gfd',
-                    start: arg.start,
-                    end: arg.end,
-                    calendar_id: this.$route.params.id
+                    'title': this.$refs.modal.$data.title,
+                    'description':this.$refs.modal.$data.title,
+                    'start': this.event.start,
+                    'end': this.event.end,
+                    'calendar_id': this.$route.params.id
 
                 }).then((response) => {
-                    console.log('dodano')
+                    this.$refs.modal.$data.isLoading=false;
+                    this.$refs.modal.$data.isMessage=true;
+                    this.$refs.modal.$data.message='Dodano';
+
                     this.getEvents()
                 })
                     .catch((e) => {
                         console.error(e)
                     })
             },
+
             update(arg) {
 
                 const event = {
