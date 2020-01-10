@@ -5,7 +5,9 @@
                 <div class="dashboard__left">
                     <div class="dashboard__header">
                         <h1>
-                            <i class="far fa-calendar-alt"></i>  E-Calendar
+                            <router-link to="/">
+                                <i class="far fa-calendar-alt"></i> E-Calendar
+                            </router-link>
                         </h1>
                     </div>
                     <Menu></Menu>
@@ -63,13 +65,13 @@
 
         }
 
-        &__container{
+        &__container {
             width: calc(100% - 250px);
 
 
         }
 
-        &__content{
+        &__content {
             padding: 15px;
             box-sizing: border-box;
 
@@ -85,8 +87,13 @@
                 font-size: 28px;
                 text-shadow: 2px 2px 2px #555;
 
-                i{
-                    margin-right:10px;
+                a{
+                    color:inherit;
+                    text-decoration: none;
+                }
+
+                i {
+                    margin-right: 10px;
                 }
             }
         }

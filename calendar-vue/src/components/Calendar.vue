@@ -1,6 +1,7 @@
 <template>
     <div class="block">
         <div class="calendar">
+            <div class="loading loading--calendar" v-if="isLoading"></div>
             <fullcalendar
                     :plugins="calendarPlugins"
                     :header="calendarHeader"
@@ -55,7 +56,8 @@
                 TimeGrid,
                 DayGrid,
                 InteractionPlugin,
-                ListPlugin
+                ListPlugin,
+
             ],
             calendarHeader: {
                 left: 'prev today next',
@@ -92,6 +94,7 @@
 
             events: [],
             event: [],
+            isLoading:true
 
         }),
         components: {
@@ -196,6 +199,7 @@
                 axios.get('/calendar/' + this.$route.params.id)
                     .then(response => {
                         this.events = response.data
+                        this.isLoading=false
                     })
                     .catch(e => {
                         this.$alertify.error(e);
@@ -234,6 +238,7 @@
 </style>
 <style lang="scss">
     .calendar {
+        position: relative;
         .fc {
             padding-bottom: 50px;
         }

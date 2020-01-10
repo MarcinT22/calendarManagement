@@ -4,7 +4,8 @@
            <h2>
                <i data-v-9bcc0be2="" class="far fa-calendar-alt"></i>Ostatnio dodane wydarzenia
            </h2>
-           <div v-for="event in lastEvent" class="block__last">
+           <div class="loading loading--center" v-if="isLoading"></div>
+           <div v-for="event in lastEvent" class="block__last" v-if="!isLoading">
               <div class="block__time">
                   <i class="far fa-clock"></i> {{formatDate(event.start)}}
               </div>
@@ -14,6 +15,7 @@
                <div class="block__description">
                    {{ event.description.substring(0,135)+".." }}
                </div>
+
            </div>
 
        </div>
@@ -30,12 +32,15 @@
         data(){
             return{
                 lastEvent:[],
+                isLoading:true
             }
         },
         created() {
             axios.get('/events/' + this.$auth.user().calendar_id+'/'+5)
                 .then(response => {
                     this.lastEvent=response.data;
+                    this.isLoading=false
+
                 })
                 .catch(e => {
                     alert('error')
