@@ -49,8 +49,28 @@
     padding: 50px 20px;
     box-sizing: border-box;
     z-index: 1;
+    position: relative;
 
 
+  }
+
+
+  &__user{
+    font-size:45px;
+    position: absolute;
+    top:-50px;
+    left:0;
+    right:0;
+    margin:auto;
+    background:#530008;
+    width:85px;
+    height:85px;
+    border:5px solid #fff;
+    border-radius: 100%;
+    color:#fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
 

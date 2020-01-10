@@ -1,6 +1,7 @@
 <template>
     <div class="modal" :class="{'modal--show':isShow}">
         <div class="modal__container">
+            <div class="modal__blur" @click="close"></div>
             <div class="modal__block">
                 <div class="modal__header">
                     <i class="fas fa-thumbtack"></i> {{header}}
@@ -29,7 +30,7 @@
                             <template v-if="method=='edit'">
                                 <button type="submit" class="modal__button modal__button--delete" v-if="!isLoading"  @click="this.delete"><i class="fas fa-trash-alt"></i> Usuń
                                 </button>
-                                <button type="submit" class="modal__button modal__button--save" v-if="!isLoading" @click="this.edit"><i class="far fa-save"></i> Zaktualizuj
+                                <button type="submit" class="modal__button modal__button--save" v-if="!isLoading" @click="this.edit"><i class="far fa-save"></i> Zapisz
                                 </button>
                             </template>
                         </div>
@@ -74,7 +75,6 @@
 </script>
 
 <style scoped lang="scss">
-    @import '../assets/scss/fontawesome';
     @import '../assets/scss/form';
     @import "../assets/scss/modal";
 

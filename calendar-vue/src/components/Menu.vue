@@ -1,10 +1,23 @@
 <template>
-    <div v-if="$auth.check()">
-        <router-link to="/">Home</router-link>
-        <router-link :to="{path:'/calendar/'+$auth.user().calendar_id}">Calendar</router-link>
-        <router-link to="/register" v-if="$auth.check() && $auth.user().roles == 1">Register</router-link>
-        <router-link to="/login"  v-if="!$auth.check()">Login</router-link>
-        <a href="#"  v-if="$auth.check()" @click.prevent="$auth.logout()">Wyloguj</a>
+    <div class="menu">
+        <ul>
+            <li>
+                <router-link to="/">
+                    <i class="fas fa-home"></i> Home
+                </router-link>
+            </li>
+            <li>
+                <router-link :to="{path:'/calendar/'+$auth.user().calendar_id}">
+                    <i class="far fa-calendar-alt"></i> Kalendarz
+                </router-link>
+            </li>
+            <li  v-if="$auth.check() && $auth.user().roles == 1">
+                <router-link to="/register">
+                    <i class="fas fa-user-plus"></i> Nowy użytkownik
+                </router-link>
+            </li>
+        </ul>
+
     </div>
 </template>
 
@@ -14,6 +27,42 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+    .menu{
+        padding-top:20px;
+        ul{
+            list-style-type: none;
+            padding:0;
+            margin:0;
 
+            li{
+               margin:10px 0;
+                border-bottom:1px solid #08557b;
+                padding-bottom:10px;
+
+                a{
+
+                    font-size:14px;
+                    text-decoration: none;
+                    color:#fff;
+                    transition:color 0.3s;
+                    font-weight: 600;
+
+                    &.is-active{
+                        color:#030a20;
+                    }
+
+                    &:hover{
+                        color: #030a20;
+                    }
+
+                    i{
+                        margin-right:10px;
+                        font-size:16px;
+                        width:20px;
+                    }
+                }
+            }
+        }
+    }
 </style>

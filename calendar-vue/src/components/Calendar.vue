@@ -1,31 +1,32 @@
 <template>
-    <div class="calendar">
-        Terminarz {{$auth.user().name}}
+    <div class="block">
+        <div class="calendar">
+            <fullcalendar
+                    :plugins="calendarPlugins"
+                    :header="calendarHeader"
+                    :buttonText="calendarButtonText"
+                    locale="pl"
+                    :weekends="false"
+                    :selectable="true"
+                    :editable="true"
+                    :events="events"
+                    @select="select"
+                    @eventDrop="update"
+                    @eventResize="update"
+                    @eventClick="clickEvent"
+                    :all-day-slot="false"
+                    min-time="07:00:00"
+                    max-time="17:30:00"
+                    height="auto"
+                    :business-hours="businessHours"
+                    slot-duration="00:10:00"
+                    :slot-label-format="slotLabelFormat"
+                    :column-header-format="columnHeaderFormat"
 
 
-        <fullcalendar
-                :plugins="calendarPlugins"
-                :header="calendarHeader"
-                :buttonText="calendarButtonText"
-                locale="pl"
-                :weekends="false"
-                :selectable="true"
-                :editable="true"
-                :events="events"
-                @select="select"
-                @eventDrop="update"
-                @eventResize="update"
-                @eventClick="clickEvent"
-                :all-day-slot="false"
-                min-time="06:00:00"
-                max-time="19:30:00"
-                height="auto"
-                :business-hours="businessHours"
-                slot-duration="00:10:00"
-                :slot-label-format="slotLabelFormat"
-
-        />
-        <EventModal ref="eventModal" :save="save" :edit="edit" :delete="deleteEvent"></EventModal>
+            />
+            <EventModal ref="eventModal" :save="save" :edit="edit" :delete="deleteEvent"></EventModal>
+        </div>
     </div>
 </template>
 
@@ -57,9 +58,9 @@
                 ListPlugin
             ],
             calendarHeader: {
-                left: 'title',
-                center: 'dayGridMonth timeGridWeek, timeGridDay, listWeek',
-                right: 'prev today next'
+                left: 'prev today next',
+                center: 'dayGridMonth timeGridWeek, timeGridDay',
+                right: 'title'
             },
             calendarButtonText: {
                 today: 'Dzisiaj',
@@ -77,7 +78,16 @@
                 hour: 'numeric',
                 minute: '2-digit',
                 omitZeroMinute: false,
-                meridiem: 'short'
+                meridiem: 'short',
+
+
+            },
+            columnHeaderFormat: {
+                weekday: 'long',
+                day:'numeric',
+                month:'numeric',
+                year:'numeric',
+                year:'2-digit'
             },
 
             events: [],
@@ -192,7 +202,7 @@
                     })
             },
 
-            deleteEvent(){
+            deleteEvent() {
                 this.$refs['eventModal'].$data.isLoading = true;
                 axios.delete('/event/' + this.event.id)
                     .then((response) => {
@@ -218,11 +228,12 @@
     }
 </script>
 
+<style scoped lang="scss">
+
+    @import "../assets/scss/block";
+</style>
 <style lang="scss">
     .calendar {
-        max-width: 1200px;
-        max-height: 500px;
-
         .fc {
             padding-bottom: 50px;
         }
@@ -230,8 +241,54 @@
         .fc-event {
             border: 0;
             padding: 5px;
+            background:#0a699a;
         }
+
+        .fc-day-header{
+            color:#333;
+            font-size:12px;
+        }
+        .fc-toolbar h2{
+            font-size:18px;
+        }
+
+        .fc-button-primary:focus{
+            box-shadow: none !important;
+        }
+
+        .fc-button{
+            background:#0a699a;
+            border:0;
+            font-size:12px;
+            outline:none;
+
+            &:hover{
+                opacity:0.9;
+            }
+
+            &:focus{
+                background:#0a699a !important;
+                opacity:0.65;
+            }
+
+            &-active{
+                background:#0a699a !important;
+                opacity:0.65;
+            }
+        }
+        .fc-time-grid .fc-slats td{
+            font-size:16px;
+
+        }
+
+        .fc-time-grid-event .fc-time{
+            font-size:12px;
+            font-weight: bold;
+        }
+        .fc-time-grid-event .fc-title{
+            font-size:12px;
+        }
+
+
     }
-
-
 </style>

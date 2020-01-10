@@ -15,6 +15,15 @@
     visibility: visible;
   }
 
+  &__blur{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 1;
+  }
+
   &__container {
     display: flex;
     align-items: center;
@@ -26,6 +35,8 @@
     width: 100%;
     max-width: 600px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
   }
 
   &__header {
@@ -122,19 +133,25 @@
     padding:5px 10px;
     font-size:14px;
     margin-left:10px;
-    background:#666;
+    background:#555;
 
     &:hover{
-      background: #040e2f;
+      background: #333;
     }
 
     &--delete{
       background: #ab2626;
-
+      &:hover{
+        background: #631616;
+      }
     }
 
     &--save{
       background: #108a29;
+
+      &:hover{
+        background: #0b5c1b;
+      }
     }
   }
 

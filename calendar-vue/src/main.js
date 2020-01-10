@@ -18,6 +18,7 @@ Vue.use(VueAxios, axios);
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api';
 const router = new VueRouter({
   mode: 'history',
+  linkExactActiveClass: 'is-active',
   routes: [
     {
       path: '/',
@@ -27,6 +28,7 @@ const router = new VueRouter({
         auth: true
       }
     },
+
     {
       path:'/calendar/:id',
       name:'calendar',

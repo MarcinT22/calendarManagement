@@ -1,0 +1,120 @@
+.block {
+  background: #fff;
+  padding: 20px;
+  box-shadow: 4px 4px 5px rgba(100, 100, 100, 0.2);
+
+  h2 {
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 30px;
+    color: #0a699a;
+
+    i{
+      margin-right:10px;
+    }
+
+  }
+
+  h3{
+    font-size: 16px;
+    margin: 5px 0;
+    color: #0a699a;
+  }
+
+  .form {
+    max-width: 500px;
+
+    &__field {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+
+    }
+
+    &__input {
+      box-sizing: border-box;
+      padding: 8px;
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+      border: 1px solid #cdcdcd;
+      color: #0a699a;
+    }
+
+    label {
+      display: block;
+      min-width: 70px;
+      font-size: 15px;
+    }
+
+
+    &__button {
+      border: 0;
+      background: #555;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+      outline: none;
+
+      &:hover {
+        background: #333;
+      }
+
+      &--add {
+        background: #108a29;
+
+        &:hover {
+          background: #0b5c1b;
+        }
+      }
+
+      i {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__loading {
+    width: 15px;
+    height: 15px;
+    border: 4px solid #ccc;
+    border-radius: 100%;
+    border-top-color: #040e2f;
+    animation: loading 0.5s ease-in-out infinite;
+  }
+
+
+  &__last{
+    border-bottom:1px solid #dedede;
+    padding:10px;
+
+  }
+
+  &__time{
+    font-size:14px;
+    color:#333;
+    display: flex;
+    align-items: center;
+    i{
+      color:#0a699a;
+      font-size:16px;
+      margin-right:5px;
+    }
+  }
+
+
+  &__description{
+    color:#333;
+    font-size:14px;
+  }
+}
+
+
+keyframes loading {
+  from {transform:rotate(0)}
+  to {transform:rotate(360deg)}
+}
