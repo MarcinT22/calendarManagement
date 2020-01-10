@@ -6,7 +6,7 @@
             </h2>
             <div class="loading loading--center" v-if="isLoading"></div>
             <div>
-                <div v-for="event in lastEvent" class="block__last" v-if="!isLoading">
+                <div v-for="event in lastEvent" class="block__last" v-if="!isLoading" :class="{'block__last--important':event.status==1,'block__last--done':event.status==2}">
                     <div class="block__time">
                         <i class="far fa-clock"></i> {{formatDate(event.start)}}
                     </div>
