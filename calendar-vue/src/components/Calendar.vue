@@ -20,7 +20,7 @@
                     max-time="17:30:00"
                     height="auto"
                     :business-hours="businessHours"
-                    slot-duration="00:10:00"
+                    slot-duration="00:15:00"
                     :slot-label-format="slotLabelFormat"
                     :column-header-format="columnHeaderFormat"
 
