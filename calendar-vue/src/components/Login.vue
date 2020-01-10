@@ -1,12 +1,15 @@
 <template>
     <div class="login login--background">
+        <h1 class="login__header">
+            E-Calendar
+        </h1>
         <div class="login__content">
             <div class="login__user">
                 <i class="fas fa-user"></i>
             </div>
-            <h1>
+            <h2>
                 Logowanie
-            </h1>
+            </h2>
             <form @submit.prevent="login" method="post" class="form">
                 <div class="form__field">
                     <i class="fas fa-user form__icon"></i><input type="email" id="email" v-model="email" class="form__input form__input--icon" placeholder="E-mail"/>
