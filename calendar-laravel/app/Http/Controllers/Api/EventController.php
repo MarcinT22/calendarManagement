@@ -48,4 +48,14 @@ class EventController extends Controller
     {
         return Event::where('calendar_id',$calendar)->take($amount)->orderBy('id','desc')->get();
     }
+
+    public function getUpcoming($calendar,$amount)
+    {
+
+        return Event::
+        where('calendar_id',$calendar)
+        ->where('start','>=',now())
+            ->take($amount)
+            ->orderBy('id','desc')->get();
+    }
 }
