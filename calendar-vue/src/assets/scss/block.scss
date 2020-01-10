@@ -92,6 +92,10 @@
     border-bottom:1px solid #dedede;
     padding:10px;
 
+    &:last-child{
+      border:0;
+    }
+
   }
 
   &__time{

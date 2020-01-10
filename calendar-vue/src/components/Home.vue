@@ -1,24 +1,26 @@
 <template>
     <div class="home">
-       <div class="block">
-           <h2>
-               <i data-v-9bcc0be2="" class="far fa-calendar-alt"></i>Ostatnio dodane wydarzenia
-           </h2>
-           <div class="loading loading--center" v-if="isLoading"></div>
-           <div v-for="event in lastEvent" class="block__last" v-if="!isLoading">
-              <div class="block__time">
-                  <i class="far fa-clock"></i> {{formatDate(event.start)}}
-              </div>
-               <h3>
-                   {{ event.title.substring(0,50)+".." }}
-               </h3>
-               <div class="block__description">
-                   {{ event.description.substring(0,135)+".." }}
-               </div>
+        <div class="block">
+            <h2>
+                <i data-v-9bcc0be2="" class="far fa-calendar-alt"></i>Ostatnio dodane wydarzenia
+            </h2>
+            <div class="loading loading--center" v-if="isLoading"></div>
+            <div>
+                <div v-for="event in lastEvent" class="block__last" v-if="!isLoading">
+                    <div class="block__time">
+                        <i class="far fa-clock"></i> {{formatDate(event.start)}}
+                    </div>
+                    <h3>
+                        {{ event.title.substring(0,50)+".." }}
+                    </h3>
+                    <div class="block__description">
+                        {{ event.description.substring(0,135)+".." }}
+                    </div>
 
-           </div>
+                </div>
+            </div>
 
-       </div>
+        </div>
     </div>
 </template>
 
@@ -29,26 +31,26 @@
 
     export default {
         name: "StartView",
-        data(){
-            return{
-                lastEvent:[],
-                isLoading:true
+        data() {
+            return {
+                lastEvent: [],
+                isLoading: true
             }
         },
         created() {
-            axios.get('/events/' + this.$auth.user().calendar_id+'/'+5)
+            axios.get('/events/' + this.$auth.user().calendar_id + '/' + 5)
                 .then(response => {
-                    this.lastEvent=response.data;
-                    this.isLoading=false
+                    this.lastEvent = response.data;
+                    this.isLoading = false
 
                 })
                 .catch(e => {
                     alert('error')
                 })
         },
-        methods:{
-            formatDate(date){
-                return moment(String(date)).format('DD.MM.YY hh:mm')
+        methods: {
+            formatDate(date) {
+                return moment(String(date)).format('DD.MM.YY HH:mm')
             }
         }
     }
@@ -56,7 +58,8 @@
 
 <style lang="scss" scoped>
     @import '../assets/scss/block';
-    .home{
-        max-width:500px;
+
+    .home {
+        max-width: 500px;
     }
 </style>

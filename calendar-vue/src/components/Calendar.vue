@@ -114,13 +114,15 @@
             },
 
             save() {
+
                 this.$refs['eventModal'].$data.isLoading = true;
                 axios.post('/event', {
                     'title': this.$refs['eventModal'].$data.title,
                     'description': this.$refs['eventModal'].$data.description,
                     'start': this.event.start,
                     'end': this.event.end,
-                    'calendar_id': this.$route.params.id
+                    'calendar_id': this.$route.params.id,
+                    'status':this.$refs['eventModal'].$data.status,
 
                 }).then((response) => {
                     this.getEvents()
@@ -141,11 +143,8 @@
             update(arg) {
 
                 const event = {
-                    title: arg.event.title,
-                    description: arg.event.description,
                     start: arg.event.start,
                     end: arg.event.end,
-                    calendar_id: arg.event.extendedProps.calendar_id
                 }
                 axios.put('/event/' + arg.event.id, event)
                     .then((response) => {
@@ -161,11 +160,12 @@
                     'id': arg.event.id,
                     'start': arg.event.start,
                     'end': arg.event.end,
-                    'calendar_id': arg.event.extendedProps.calendar_id
+                    'calendar_id': arg.event.extendedProps.calendar_id,
                 }
 
                 this.$refs['eventModal'].$data.title = arg.event.title
                 this.$refs['eventModal'].$data.description = arg.event.extendedProps.description
+                this.$refs['eventModal'].$data.status = arg.event.extendedProps.status
             },
 
             edit() {
@@ -175,7 +175,8 @@
                     description: this.$refs['eventModal'].$data.title,
                     start: this.event.start,
                     end: this.event.end,
-                    calendar_id: this.event.calendar_id
+                    calendar_id: this.event.calendar_id,
+                    status: this.$refs['eventModal'].$data.status,
                 }
                 axios.put('/event/' + this.event.id, updateEvent)
                     .then((response) => {

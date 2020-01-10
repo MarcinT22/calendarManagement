@@ -113,6 +113,16 @@
     font-size: 14px;
   }
 
+  &__select{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    color: #000;
+    font-size: 14px;
+  }
+
 
   &__bottom{
     display: flex;
