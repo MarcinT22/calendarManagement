@@ -1,27 +1,33 @@
 <template>
-    <div class="calendar">
-        Terminarz {{$auth.user().name}}
+    <div class="block">
+        <div class="calendar">
+            <div class="loading loading--calendar" v-if="isLoading"></div>
+            <fullcalendar
+                    :plugins="calendarPlugins"
+                    :header="calendarHeader"
+                    :buttonText="calendarButtonText"
+                    locale="pl"
+                    :weekends="false"
+                    :selectable="true"
+                    :editable="true"
+                    :events="events"
+                    @select="select"
+                    @eventDrop="update"
+                    @eventResize="update"
+                    @eventClick="clickEvent"
+                    :all-day-slot="false"
+                    min-time="07:00:00"
+                    max-time="17:30:00"
+                    height="auto"
+                    :business-hours="businessHours"
+                    slot-duration="00:10:00"
+                    :slot-label-format="slotLabelFormat"
+                    :column-header-format="columnHeaderFormat"
 
 
-        <fullcalendar
-                :plugins="calendarPlugins"
-                :header="calendarHeader"
-                :buttonText="calendarButtonText"
-                locale="pl"
-                :weekends="false"
-                :selectable="true"
-                :editable="true"
-                :events="events"
-                @select="select"
-                @eventDrop="update"
-                @eventResize="update"
-                :all-day-slot="false"
-                min-time="06:00:00"
-                max-time="19:30:00"
-                height="auto"
-                :business-hours="businessHours"
-        />
-        <Modal ref="modal" :save="save"></Modal>
+            />
+            <EventModal ref="eventModal" :save="save" :edit="edit" :delete="deleteEvent"></EventModal>
+        </div>
     </div>
 </template>
 
@@ -36,7 +42,12 @@
     import InteractionPlugin from '@fullcalendar/interaction'
     import ListPlugin from '@fullcalendar/list'
     import axios from 'axios'
-    import Modal from '@/components/Modal'
+    import EventModal from '@/components/EventModal'
+
+    import Vue from 'vue';
+    import VueAlertify from 'vue-alertify';
+
+    Vue.use(VueAlertify);
 
     export default {
         name: "Calendar",
@@ -45,12 +56,13 @@
                 TimeGrid,
                 DayGrid,
                 InteractionPlugin,
-                ListPlugin
+                ListPlugin,
+
             ],
             calendarHeader: {
-                left: 'title',
-                center: 'dayGridMonth timeGridWeek, timeGridDay, listWeek',
-                right: 'prev today next'
+                left: 'prev today next',
+                center: 'dayGridMonth timeGridWeek, timeGridDay',
+                right: 'title'
             },
             calendarButtonText: {
                 today: 'Dzisiaj',
@@ -64,44 +76,65 @@
                 startTime: '08:00',
                 endTime: '16:00',
             },
+            slotLabelFormat: {
+                hour: 'numeric',
+                minute: '2-digit',
+                omitZeroMinute: false,
+                meridiem: 'short',
+
+
+            },
+            columnHeaderFormat: {
+                weekday: 'long',
+                day:'numeric',
+                month:'numeric',
+                year:'numeric',
+                year:'2-digit'
+            },
+
             events: [],
-            event:[],
+            event: [],
+            isLoading:true
 
         }),
         components: {
             Fullcalendar,
-            Modal
+            EventModal
         },
         methods: {
-            select(arg) {
-                this.$refs.modal.show()
 
-               this.event = {
+            select(arg) {
+                this.$refs['eventModal'].show('Nowy wpis', 'new')
+
+                this.event = {
                     'start': arg.start,
                     'end': arg.end,
                 }
 
-
             },
 
             save() {
-                this.$refs.modal.$data.isLoading=true;
+                this.$refs['eventModal'].$data.isLoading = true;
                 axios.post('/event', {
-                    'title': this.$refs.modal.$data.title,
-                    'description':this.$refs.modal.$data.title,
+                    'title': this.$refs['eventModal'].$data.title,
+                    'description': this.$refs['eventModal'].$data.description,
                     'start': this.event.start,
                     'end': this.event.end,
                     'calendar_id': this.$route.params.id
 
                 }).then((response) => {
-                    this.$refs.modal.$data.isLoading=false;
-                    this.$refs.modal.$data.isMessage=true;
-                    this.$refs.modal.$data.message='Dodano';
-
                     this.getEvents()
+                    setTimeout(() => {
+                        this.$refs['eventModal'].$data.isLoading = false;
+                        this.$alertify.success('Pomyślnie dodano wpis');
+                        this.$refs['eventModal'].close()
+                    }, 500);
+
+
                 })
                     .catch((e) => {
-                        console.error(e)
+                        this.$alertify.error('Nie zapisano wpisu');
+                        this.$refs['eventModal'].$data.isLoading = false;
                     })
             },
 
@@ -109,31 +142,85 @@
 
                 const event = {
                     title: arg.event.title,
-                    description: 'gfd',
+                    description: arg.event.description,
                     start: arg.event.start,
                     end: arg.event.end,
                     calendar_id: arg.event.extendedProps.calendar_id
                 }
                 axios.put('/event/' + arg.event.id, event)
                     .then((response) => {
-                        console.log('update')
-                        // this.getEvents()
                     })
                     .catch((e) => {
-                        console.error(e)
+                        this.$alertify.error(e);
                     })
             },
 
-            getEvents(){
+            clickEvent(arg) {
+                this.$refs['eventModal'].show('Edytuj wpis', 'edit')
+                this.event = {
+                    'id': arg.event.id,
+                    'start': arg.event.start,
+                    'end': arg.event.end,
+                    'calendar_id': arg.event.extendedProps.calendar_id
+                }
+
+                this.$refs['eventModal'].$data.title = arg.event.title
+                this.$refs['eventModal'].$data.description = arg.event.extendedProps.description
+            },
+
+            edit() {
+                this.$refs['eventModal'].$data.isLoading = true;
+                const updateEvent = {
+                    title: this.$refs['eventModal'].$data.title,
+                    description: this.$refs['eventModal'].$data.title,
+                    start: this.event.start,
+                    end: this.event.end,
+                    calendar_id: this.event.calendar_id
+                }
+                axios.put('/event/' + this.event.id, updateEvent)
+                    .then((response) => {
+                        this.getEvents()
+                        setTimeout(() => {
+                            this.$refs['eventModal'].$data.isLoading = false;
+                            this.$alertify.success('Pomyślnie zaaktualizowano wpis');
+                            this.$refs['eventModal'].close()
+                        }, 500);
+
+
+                    })
+                    .catch((e) => {
+                        this.$alertify.error('Nie zapisano wpisu');
+                        this.$refs['eventModal'].$data.isLoading = false;
+                    })
+            },
+
+
+            getEvents() {
                 axios.get('/calendar/' + this.$route.params.id)
                     .then(response => {
-                        // console.log(response.data)
-                        // JSON responses are automatically parsed.
                         this.events = response.data
-                        console.log(response.data)
+                        this.isLoading=false
                     })
                     .catch(e => {
-                        console.log('error')
+                        this.$alertify.error(e);
+                    })
+            },
+
+            deleteEvent() {
+                this.$refs['eventModal'].$data.isLoading = true;
+                axios.delete('/event/' + this.event.id)
+                    .then((response) => {
+                        this.getEvents()
+                        setTimeout(() => {
+                            this.$alertify.success('Usunięto wpis');
+                            this.$refs['eventModal'].close()
+                            this.$refs['eventModal'].$data.isLoading = false;
+                        }, 500);
+
+                    })
+                    .catch((e) => {
+                        this.$alertify.error('Nie usunięto wpisu');
+                        this.$refs['eventModal'].$data.isLoading = false;
                     })
             }
 
@@ -145,11 +232,13 @@
     }
 </script>
 
+<style scoped lang="scss">
+
+    @import "../assets/scss/block";
+</style>
 <style lang="scss">
     .calendar {
-        max-width: 1200px;
-        max-height: 500px;
-
+        position: relative;
         .fc {
             padding-bottom: 50px;
         }
@@ -157,8 +246,54 @@
         .fc-event {
             border: 0;
             padding: 5px;
+            background:#0a699a;
         }
+
+        .fc-day-header{
+            color:#333;
+            font-size:12px;
+        }
+        .fc-toolbar h2{
+            font-size:18px;
+        }
+
+        .fc-button-primary:focus{
+            box-shadow: none !important;
+        }
+
+        .fc-button{
+            background:#0a699a;
+            border:0;
+            font-size:12px;
+            outline:none;
+
+            &:hover{
+                opacity:0.9;
+            }
+
+            &:focus{
+                background:#0a699a !important;
+                opacity:0.65;
+            }
+
+            &-active{
+                background:#0a699a !important;
+                opacity:0.65;
+            }
+        }
+        .fc-time-grid .fc-slats td{
+            font-size:16px;
+
+        }
+
+        .fc-time-grid-event .fc-time{
+            font-size:12px;
+            font-weight: bold;
+        }
+        .fc-time-grid-event .fc-title{
+            font-size:12px;
+        }
+
+
     }
-
-
 </style>

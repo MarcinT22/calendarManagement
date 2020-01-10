@@ -43,4 +43,9 @@ class EventController extends Controller
     {
         return Event::where('calendar_id',$calendar)->get();
     }
+
+    public function getLast($calendar,$amount)
+    {
+        return Event::where('calendar_id',$calendar)->take($amount)->orderBy('id','desc')->get();
+    }
 }

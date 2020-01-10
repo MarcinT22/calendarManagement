@@ -77,7 +77,7 @@ class AuthController extends Controller
 
         return response([
             'status' => 'success',
-            'msg' => 'Wylogowano'
+            'message' => 'Wylogowano'
         ], 200);
     }
 }

@@ -28,6 +28,7 @@ Route::delete('calendar/{calendar}', 'Api\CalendarController@delete');
 Route::get('event', 'Api\EventController@index');
 Route::get('event/{event}', 'Api\EventController@show');
 Route::get('events/{calendar}', 'Api\EventController@getByCalendar');
+Route::get('events/{calendar}/{amount}', 'Api\EventController@getLast');
 Route::post('event', 'Api\EventController@store');
 Route::put('event/{event}', 'Api\EventController@update');
 Route::delete('event/{event}', 'Api\EventController@delete');

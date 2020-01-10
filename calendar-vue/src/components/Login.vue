@@ -1,6 +1,9 @@
 <template>
-    <div class="login">
+    <div class="login login--background">
         <div class="login__content">
+            <div class="login__user">
+                <i class="fas fa-user"></i>
+            </div>
             <h1>
                 Logowanie
             </h1>
@@ -55,7 +58,7 @@
                         this.errorMessage = r.response.data.message
                     },
                     rememberMe: true,
-                    redirect: '/home',
+                    redirect: '/',
                     fetchUser: true
                 })
             }
@@ -66,6 +69,6 @@
 <style lang="scss" scoped>
     @import "../assets/scss/login";
     @import "../assets/scss/form";
-    @import "../assets/scss/fontawesome";
+
 </style>
 
