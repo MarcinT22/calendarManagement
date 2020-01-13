@@ -1,5 +1,5 @@
 <template>
-    <div class="block">
+    <div class="block block--small">
         <h2>
             Dodaj nowego użytkownika
         </h2>
@@ -23,7 +23,7 @@
 
             </div>
             <div class="block__loading" v-if="isLoading"></div>
-            <button type="submit" v-if="!isLoading" class="form__button form__button--add">Dodaj<i class="fas fa-user-plus"></i> </button>
+            <button type="submit" v-if="!isLoading" class="block__button block__button--add"><i class="fas fa-user-plus"></i>Dodaj</button>
         </form>
 
 

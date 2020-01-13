@@ -11,9 +11,9 @@
                     <i class="far fa-calendar-alt"></i> Kalendarz
                 </router-link>
             </li>
-            <li  v-if="$auth.check() && $auth.user().roles == 1">
-                <router-link to="/register">
-                    <i class="fas fa-user-plus"></i> Nowy użytkownik
+            <li  v-if="$auth.user().roles == 1">
+                <router-link to="/users">
+                    <i class="fas fa-user"></i>Użytkownicy
                 </router-link>
             </li>
         </ul>

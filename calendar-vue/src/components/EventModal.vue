@@ -24,8 +24,8 @@
                             <label for="status" class="modal__label">Status:</label>
                             <select v-model="status" id="status" class="modal__select">
                                 <option :value="0">Domyślny</option>
-                                <option :value="1">Ważne</option>
-                                <option :value="2">Wykonane</option>
+                                <option :value="1">Ważny</option>
+                                <option :value="2">Wykonany</option>
                             </select>
                         </div>
                         <div class="modal__bottom">
