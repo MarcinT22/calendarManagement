@@ -10,7 +10,7 @@ import Home from '@/components/Home'
 import Calendar from '@/components/Calendar'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-
+import Users from '@/components/Users'
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios);
@@ -52,6 +52,15 @@ const router = new VueRouter({
       component: Login,
       meta: {
         auth: false
+      }
+    },
+
+    {
+      path: '/users',
+      name: 'users',
+      component: Users,
+      meta: {
+        auth: true
       }
     },
 

@@ -2,6 +2,17 @@
     <div class="block">
         <div class="calendar">
             <div class="loading loading--calendar" v-if="isLoading"></div>
+            <div class="calendar__legend">
+                <div class="calendar__status">
+                    <span class="calendar__background"></span> Domyślny
+                </div>
+                <div class="calendar__status">
+                    <span class="calendar__background calendar__background--important"></span> Ważny
+                </div>
+                <div class="calendar__status">
+                    <span class="calendar__background calendar__background--done"></span> Wykonany
+                </div>
+            </div>
             <fullcalendar
                     :plugins="calendarPlugins"
                     :header="calendarHeader"
@@ -86,15 +97,15 @@
             },
             columnHeaderFormat: {
                 weekday: 'long',
-                day:'numeric',
-                month:'numeric',
-                year:'numeric',
-                year:'2-digit'
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+                year: '2-digit'
             },
 
             events: [],
             event: [],
-            isLoading:true
+            isLoading: true
 
         }),
         components: {
@@ -120,7 +131,9 @@
                     'description': this.$refs['eventModal'].$data.description,
                     'start': this.event.start,
                     'end': this.event.end,
-                    'calendar_id': this.$route.params.id
+                    'calendar_id': this.$route.params.id,
+                    'status': this.$refs['eventModal'].$data.status,
+                    'backgroundColor': this.setBackgroundColor(this.$refs['eventModal'].$data.status)
 
                 }).then((response) => {
                     this.getEvents()
@@ -141,11 +154,8 @@
             update(arg) {
 
                 const event = {
-                    title: arg.event.title,
-                    description: arg.event.description,
                     start: arg.event.start,
                     end: arg.event.end,
-                    calendar_id: arg.event.extendedProps.calendar_id
                 }
                 axios.put('/event/' + arg.event.id, event)
                     .then((response) => {
@@ -161,11 +171,13 @@
                     'id': arg.event.id,
                     'start': arg.event.start,
                     'end': arg.event.end,
-                    'calendar_id': arg.event.extendedProps.calendar_id
+                    'calendar_id': arg.event.extendedProps.calendar_id,
                 }
 
                 this.$refs['eventModal'].$data.title = arg.event.title
                 this.$refs['eventModal'].$data.description = arg.event.extendedProps.description
+                this.$refs['eventModal'].$data.status = arg.event.extendedProps.status
+                this.$refs['eventModal'].$data.backgroundColor = arg.event.extendedProps.backgroundColor
             },
 
             edit() {
@@ -175,7 +187,9 @@
                     description: this.$refs['eventModal'].$data.title,
                     start: this.event.start,
                     end: this.event.end,
-                    calendar_id: this.event.calendar_id
+                    calendar_id: this.event.calendar_id,
+                    status: this.$refs['eventModal'].$data.status,
+                    backgroundColor: this.setBackgroundColor(this.$refs['eventModal'].$data.status)
                 }
                 axios.put('/event/' + this.event.id, updateEvent)
                     .then((response) => {
@@ -199,7 +213,7 @@
                 axios.get('/calendar/' + this.$route.params.id)
                     .then(response => {
                         this.events = response.data
-                        this.isLoading=false
+                        this.isLoading = false
                     })
                     .catch(e => {
                         this.$alertify.error(e);
@@ -222,12 +236,24 @@
                         this.$alertify.error('Nie usunięto wpisu');
                         this.$refs['eventModal'].$data.isLoading = false;
                     })
-            }
+            },
+
+            setBackgroundColor(status) {
+                if (status == 1) {
+                    return '#9a0a0a'
+                } else if (status == 2) {
+                    return '#0a9a3d'
+                } else {
+                    return '#0a699a'
+                }
+
+            },
 
 
         },
         created() {
             this.getEvents()
+            this.setBackgroundColor(1)
         }
     }
 </script>
@@ -239,6 +265,36 @@
 <style lang="scss">
     .calendar {
         position: relative;
+
+        &__legend {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        &__status {
+            display: flex;
+            margin-right: 10px;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        &__background {
+            width: 10px;
+            height: 10px;
+            background: #0a699a;
+            margin-right:5px;
+
+            &--important {
+                background: #9a0a0a;
+
+            }
+
+            &--done {
+                background: #0a9a3d;
+            }
+
+        }
+
         .fc {
             padding-bottom: 50px;
         }
@@ -246,52 +302,55 @@
         .fc-event {
             border: 0;
             padding: 5px;
-            background:#0a699a;
+            background: #0a699a;
         }
 
-        .fc-day-header{
-            color:#333;
-            font-size:12px;
-        }
-        .fc-toolbar h2{
-            font-size:18px;
+        .fc-day-header {
+            color: #333;
+            font-size: 12px;
         }
 
-        .fc-button-primary:focus{
+        .fc-toolbar h2 {
+            font-size: 18px;
+        }
+
+        .fc-button-primary:focus {
             box-shadow: none !important;
         }
 
-        .fc-button{
-            background:#0a699a;
-            border:0;
-            font-size:12px;
-            outline:none;
+        .fc-button {
+            background: #0a699a;
+            border: 0;
+            font-size: 12px;
+            outline: none;
 
-            &:hover{
-                opacity:0.9;
+            &:hover {
+                opacity: 0.9;
             }
 
-            &:focus{
-                background:#0a699a !important;
-                opacity:0.65;
+            &:focus {
+                background: #0a699a !important;
+                opacity: 0.65;
             }
 
-            &-active{
-                background:#0a699a !important;
-                opacity:0.65;
+            &-active {
+                background: #0a699a !important;
+                opacity: 0.65;
             }
         }
-        .fc-time-grid .fc-slats td{
-            font-size:16px;
+
+        .fc-time-grid .fc-slats td {
+            font-size: 16px;
 
         }
 
-        .fc-time-grid-event .fc-time{
-            font-size:12px;
+        .fc-time-grid-event .fc-time {
+            font-size: 12px;
             font-weight: bold;
         }
-        .fc-time-grid-event .fc-title{
-            font-size:12px;
+
+        .fc-time-grid-event .fc-title {
+            font-size: 12px;
         }
 
 

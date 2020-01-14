@@ -12,7 +12,9 @@ class Event extends Model
         'start',
         'end',
         'backgroundColor',
-        'calendar_id'
+        'calendar_id',
+        'status',
+        'backgroundColor'
 
     ];
 }

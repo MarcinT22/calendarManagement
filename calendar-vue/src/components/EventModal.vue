@@ -20,6 +20,14 @@
                             <label for="description" class="modal__label">Opis:</label>
                             <textarea class="modal__textarea" id="description" v-model="description"></textarea>
                         </div>
+                        <div class="modal__field">
+                            <label for="status" class="modal__label">Status:</label>
+                            <select v-model="status" id="status" class="modal__select">
+                                <option :value="0">Domyślny</option>
+                                <option :value="1">Ważny</option>
+                                <option :value="2">Wykonany</option>
+                            </select>
+                        </div>
                         <div class="modal__bottom">
                             <div class="modal__loading" v-if="isLoading"></div>
                             <template v-if="method=='new'">
@@ -54,6 +62,7 @@
                 description: '',
                 isLoading: false,
                 method: '',
+                status:0,
             }
         },
         methods: {
@@ -62,6 +71,7 @@
                 setTimeout(() => {
                     this.title = ''
                     this.description = ''
+                    this.status=0
                 }, 500);
             },
             show(header, method) {
