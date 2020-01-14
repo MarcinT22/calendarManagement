@@ -161,7 +161,7 @@
                     .then((response) => {
                     })
                     .catch((e) => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie zaaktualizowano wpisu');
                     })
             },
 
@@ -210,17 +210,20 @@
 
 
             getEvents() {
+
+                this.events=[];
                 axios.get('/calendar/' + this.$route.params.id)
                     .then(response => {
                         this.events = response.data
                         this.isLoading = false
                     })
                     .catch(e => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie można pobrać wydarzeń');
                     })
             },
 
             deleteEvent() {
+
                 this.$refs['eventModal'].$data.isLoading = true;
                 axios.delete('/event/' + this.event.id)
                     .then((response) => {
@@ -251,10 +254,17 @@
 
 
         },
+        watch:{
+          '$route.params.id':function(){
+              this.events = []
+              this.isLoading = true
+                this.getEvents()
+          }
+        },
         created() {
             this.getEvents()
-            this.setBackgroundColor(1)
-        }
+        },
+
     }
 </script>
 
@@ -312,6 +322,12 @@
 
         .fc-toolbar h2 {
             font-size: 18px;
+
+
+            @media (max-width:1024px)
+            {
+                font-size:14px;
+            }
         }
 
         .fc-button-primary:focus {
@@ -341,6 +357,11 @@
 
         .fc-time-grid .fc-slats td {
             font-size: 16px;
+
+            @media (max-width:1024px)
+            {
+                font-size:14px;
+            }
 
         }
 

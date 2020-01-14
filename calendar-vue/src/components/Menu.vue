@@ -7,8 +7,8 @@
                 </router-link>
             </li>
             <li>
-                <router-link :to="{path:'/calendar/'+$auth.user().calendar_id}">
-                    <i class="far fa-calendar-alt"></i> Kalendarz
+                <router-link :to="{path:'/calendar/'+$auth.user().id}">
+                    <i class="far fa-calendar-alt"></i>Mój kalendarz
                 </router-link>
             </li>
             <li  v-if="$auth.user().roles == 1">
@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        name: "Menu"
+        name: "Menu",
     }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
     <div>
         <template v-if="$auth.check()">
-            <div class="dashboard">
+            <div class="dashboard" id="dashboard">
                 <div class="dashboard__left">
                     <div class="dashboard__header">
                         <h1>
@@ -10,7 +10,7 @@
                             </router-link>
                         </h1>
                     </div>
-                    <Menu></Menu>
+                    <Menu ref="menu"></Menu>
                 </div>
                 <div class="dashboard__container">
                     <Top></Top>
@@ -53,6 +53,28 @@
         display: flex;
         justify-content: flex-end;
 
+        &--full{
+            .dashboard{
+                &__left{
+                    left:-250px;
+
+                    @media (max-width:1024px)
+                    {
+                        left:0;
+                    }
+                }
+
+                &__container{
+                    width:100%;
+
+                    @media (max-width:1024px)
+                    {
+                        width: calc(100% - 250px);
+                    }
+                }
+            }
+        }
+
         &__left {
             width: 250px;
             position: fixed;
@@ -62,18 +84,33 @@
             bottom: 0;
             padding: 15px;
             box-sizing: border-box;
+            transition:left 0.3s ease-in-out;
+
+            @media (max-width:1024px)
+            {
+                left:-250px;
+            }
 
         }
 
         &__container {
             width: calc(100% - 250px);
-
-
+            transition:width 0.3s ease-in-out;
+            @media (max-width:1024px)
+            {
+                width:100%;
+            }
         }
 
         &__content {
             padding: 15px;
             box-sizing: border-box;
+
+
+            @media (max-width:1024px)
+            {
+                padding:10px;
+            }
 
         }
 
