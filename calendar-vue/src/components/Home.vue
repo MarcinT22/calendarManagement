@@ -34,6 +34,12 @@
            margin:0px;
         }
 
+        @media (max-width:767px)
+        {
+
+            flex-direction: column-reverse;
+        }
+
         &__col{
             width:100%;
             max-width:550px;
@@ -42,6 +48,11 @@
             @media (max-width:1024px)
             {
                padding:0 5px;
+            }
+
+            @media (max-width:767px){
+                margin-bottom:15px;
+                padding:0;
             }
         }
 

@@ -6,7 +6,7 @@
             </router-link>
         </div>
         <div class="loading loading--center" v-if="isLoading"></div>
-        <div v-if="!isLoading">
+        <div v-if="!isLoading" class="block__table">
             <table>
                 <tr>
                     <th>

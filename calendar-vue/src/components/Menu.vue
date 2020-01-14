@@ -1,9 +1,9 @@
 <template>
-    <div class="menu">
+    <div class="menu" @click="closeMenu()">
         <ul>
             <li>
                 <router-link to="/">
-                    <i class="fas fa-home"></i> Home
+                    <i class="fas fa-home"></i>Home
                 </router-link>
             </li>
             <li>
@@ -24,6 +24,16 @@
 <script>
     export default {
         name: "Menu",
+        methods:{
+            closeMenu()
+            {
+                if(screen.width <= 1024)
+                {
+                    let dashboard = document.getElementById('dashboard');
+                    dashboard.classList.toggle('dashboard--full')
+                }
+            }
+        }
     }
 </script>
 
@@ -48,6 +58,11 @@
                     transition:color 0.3s;
                     font-weight: 600;
 
+                    @media (max-width:1024px)
+                    {
+                        font-size:16px;
+                    }
+
                     &.is-active{
                         color:#030a20;
                     }
@@ -60,6 +75,13 @@
                         margin-right:10px;
                         font-size:16px;
                         width:20px;
+
+
+                        @media (max-width:1024px)
+                        {
+                            width:30px;
+                            font-size:18px;
+                        }
                     }
                 }
             }

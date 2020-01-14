@@ -3,17 +3,22 @@
   padding: 20px;
   box-shadow: 4px 4px 5px rgba(100, 100, 100, 0.2);
 
-  @media (max-width:1024px)
-  {
-    padding:15px;
+  @media (max-width: 1024px) {
+    padding: 15px;
   }
 
-  &--small{
-    max-width:600px;
+  &--small {
+    max-width: 600px;
   }
 
-  &__content{
-    margin-top:-20px;
+  &--calendar {
+    @media (max-width: 767px) {
+      padding: 7px;
+    }
+  }
+
+  &__content {
+    margin-top: -20px;
 
   }
 
@@ -23,25 +28,23 @@
     margin-bottom: 30px;
     color: #0a699a;
 
-    @media (max-width:1024px)
-    {
-      font-size:16px;
+    @media (max-width: 1024px) {
+      font-size: 16px;
     }
 
-    i{
-      margin-right:10px;
+    i {
+      margin-right: 10px;
     }
 
   }
 
-  h3{
+  h3 {
     font-size: 16px;
     margin: 5px 0;
     color: #0a699a;
 
-    @media (max-width:1024px)
-    {
-      font-size:14px;
+    @media (max-width: 1024px) {
+      font-size: 14px;
     }
   }
 
@@ -76,12 +79,12 @@
 
   }
 
-  &__buttons{
+  &__buttons {
     display: flex;
     justify-content: center;
 
-    a{
-      margin:2px;
+    a {
+      margin: 2px;
     }
   }
 
@@ -97,9 +100,8 @@
     transition: background 0.3s;
     outline: none;
 
-    @media (max-width:1024px)
-    {
-      font-size:12px;
+    @media (max-width: 1024px) {
+      font-size: 12px;
     }
 
 
@@ -115,7 +117,7 @@
       }
     }
 
-    &--calendar{
+    &--calendar {
       background: #8a6716;
 
       &:hover {
@@ -123,10 +125,10 @@
       }
     }
 
-    &--trash{
-      background:#9a0a0a;
+    &--trash {
+      background: #9a0a0a;
 
-      &:hover{
+      &:hover {
         background: #7a0808;
       }
     }
@@ -136,9 +138,9 @@
     }
 
 
-    &--withoutText{
-      i{
-        margin:0;
+    &--withoutText {
+      i {
+        margin: 0;
       }
     }
   }
@@ -153,122 +155,127 @@
   }
 
 
-  &__last{
-    border-bottom:1px solid #dedede;
-    padding:10px;
+  &__last {
+    border-bottom: 1px solid #dedede;
+    padding: 10px;
 
-    &:last-child{
-      border:0;
+    &:last-child {
+      border: 0;
     }
 
 
   }
 
-  &__time{
-    font-size:14px;
-    color:#333;
+  &__time {
+    font-size: 14px;
+    color: #333;
     display: flex;
     align-items: center;
 
 
-    @media (max-width:1024px)
-    {
-      font-size:12px;
+    @media (max-width: 1024px) {
+      font-size: 12px;
     }
 
-    i{
-      color:#0a699a;
-      font-size:16px;
-      margin-right:5px;
+    i {
+      color: #0a699a;
+      font-size: 16px;
+      margin-right: 5px;
 
 
-      @media (max-width:1024px)
-      {
-        font-size:14px;
+      @media (max-width: 1024px) {
+        font-size: 14px;
       }
     }
   }
 
 
-  &__description{
-    color:#333;
-    font-size:14px;
+  &__description {
+    color: #333;
+    font-size: 14px;
 
-    @media (max-width:1024px)
-    {
-      font-size:13px;
+    @media (max-width: 1024px) {
+      font-size: 13px;
     }
   }
 
-  &__status{
-    margin-left:10px;
-    font-size:15px;
+  &__status {
+    margin-left: 10px;
+    font-size: 15px;
 
-    &--important{
-     i{
-       color:#9a0a0a;
-     }
+    &--important {
+      i {
+        color: #9a0a0a;
+      }
     }
 
-    &--done{
-      i{
-        color:#0a9a3d;
+    &--done {
+      i {
+        color: #0a9a3d;
       }
     }
   }
 
-  &__actions{
+  &__actions {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom:30px;
+    margin-bottom: 30px;
   }
 
 
-  &__empty{
-    font-size:14px;
-    color:#888;
+  &__empty {
+    font-size: 14px;
+    color: #888;
     text-align: center;
-    padding-bottom:10px;
+    padding-bottom: 10px;
   }
 
-  table{
+  &__table {
+    overflow-x: auto;
+    table {
 
-    width:100%;
-    border-collapse: collapse;
+      width: 100%;
+      border-collapse: collapse;
 
 
+      td, th {
+        padding: 10px;
+        font-size: 14px;
+        color: #333;
+        text-align: center;
 
-    td,th{
-      padding:10px;
-      font-size:14px;
-      color:#333;
-      text-align: center;
-
-      @media (max-width:1024px)
-      {
-        font-size:13px;
-      }
-    }
-    td{
-      border-top:1px solid #ccc;
-
-      &.roles{
-        .true{
-
-          color:#0a9a3d;
-        }
-        .false{
-          color:#9a0a0a;
+        @media (max-width: 1024px) {
+          font-size: 13px;
         }
       }
-    }
 
+      td {
+        border-top: 1px solid #ccc;
+
+        &.roles {
+          .true {
+
+            color: #0a9a3d;
+          }
+
+          .false {
+            color: #9a0a0a;
+          }
+        }
+      }
+
+    }
   }
 }
 
 
 keyframes loading {
-  from {transform:rotate(0)}
-  to {transform:rotate(360deg)}
+  from {
+    transform: rotate(0)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
 }

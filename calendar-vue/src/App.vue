@@ -3,6 +3,9 @@
         <template v-if="$auth.check()">
             <div class="dashboard" id="dashboard">
                 <div class="dashboard__left">
+                    <div class="dashboard__close" @click="closeMenu">
+                        <i class="fas fa-times"></i>
+                    </div>
                     <div class="dashboard__header">
                         <h1>
                             <router-link to="/">
@@ -35,6 +38,13 @@
     export default {
         name: 'App',
         components: {Menu, Top},
+        methods:{
+            closeMenu()
+            {
+                let dashboard = document.getElementById('dashboard');
+                dashboard.classList.toggle('dashboard--full')
+            }
+        }
     }
 </script>
 
@@ -61,17 +71,28 @@
                     @media (max-width:1024px)
                     {
                         left:0;
+                        transform: translateX(0%);
                     }
                 }
 
                 &__container{
                     width:100%;
 
-                    @media (max-width:1024px)
-                    {
-                        width: calc(100% - 250px);
-                    }
                 }
+            }
+        }
+
+        &__close{
+            position: absolute;
+            right:10px;
+            top:5px;
+            color:#fff;
+            font-size:25px;
+            display: none;
+
+            @media (max-width:1024px)
+            {
+                display: block;
             }
         }
 
@@ -88,7 +109,15 @@
 
             @media (max-width:1024px)
             {
-                left:-250px;
+
+                position: fixed;
+                z-index: 2;
+                width:auto;
+                right:0;
+                left:0;
+                transform: translateX(-100%);
+                transition:transform 0.3s ease-in-out;
+                overflow-y: auto;
             }
 
         }

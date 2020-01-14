@@ -46,6 +46,7 @@
             font-size:18px;
             color:#0a699a;
             transition:color 0.3s;
+            -webkit-tap-highlight-color: none;
             &:hover{
                 color:#333;
             }
@@ -59,7 +60,7 @@
 
 
         &__user {
-            margin-right: 50px;
+            margin-right: 20px;
             font-size: 14px;
             display: flex;
             align-items: center;
@@ -69,6 +70,7 @@
             @media (max-width:1024px)
             {
                font-size:12px;
+                margin-right:15px;
             }
 
             i {
@@ -96,6 +98,11 @@
             @media (max-width:1024px)
             {
                 font-size:12px;
+            }
+
+            @media (max-width:767px)
+            {
+                font-size:0;
             }
 
             &:hover {
