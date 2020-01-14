@@ -16,7 +16,8 @@ class CalendarController extends Controller
 
     public function show(Calendar $calendar)
     {
-        $events = Event::where('calendar_id',$calendar->id)->get();
+        $calendar = Calendar::find($calendar->id);
+        $events = $calendar->events;
         return response()->json($events, 201);
     }
 

@@ -16,7 +16,7 @@
     import UpcomingEvents from '@/components/UpcomingEvents'
 
     export default {
-        name: "StartView",
+        name: "Home",
         components: {
             LastEvents,
             UpcomingEvents
@@ -28,9 +28,32 @@
         display: flex;
         flex-direction: row;
         margin:0 -15px;
+
+        @media (max-width:1024px)
+        {
+           margin:0px;
+        }
+
+        @media (max-width:767px)
+        {
+
+            flex-direction: column-reverse;
+        }
+
         &__col{
-            width:33.33%;
+            width:100%;
+            max-width:550px;
             padding: 0 15px;
+
+            @media (max-width:1024px)
+            {
+               padding:0 5px;
+            }
+
+            @media (max-width:767px){
+                margin-bottom:15px;
+                padding:0;
+            }
         }
 
     }

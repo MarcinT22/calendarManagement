@@ -13,7 +13,7 @@ class CalendarsTableSeeder extends Seeder
     public function run()
     {
         DB::table('calendars')->insert([
-           'id'=>1
+           'user_id'=>1
         ]);
     }
 }

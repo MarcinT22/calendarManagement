@@ -54,7 +54,7 @@ class EventController extends Controller
 
         return Event::
         where('calendar_id',$calendar)
-        ->where('start','>=',now())
+        ->where('start','>',now())
             ->take($amount)
             ->orderBy('id','desc')->get();
     }

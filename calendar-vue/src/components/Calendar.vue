@@ -1,5 +1,5 @@
 <template>
-    <div class="block">
+    <div class="block block--calendar">
         <div class="calendar">
             <div class="loading loading--calendar" v-if="isLoading"></div>
             <div class="calendar__legend">
@@ -96,7 +96,7 @@
 
             },
             columnHeaderFormat: {
-                weekday: 'long',
+                weekday: 'short',
                 day: 'numeric',
                 month: 'numeric',
                 year: 'numeric',
@@ -161,7 +161,7 @@
                     .then((response) => {
                     })
                     .catch((e) => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie zaaktualizowano wpisu');
                     })
             },
 
@@ -210,17 +210,19 @@
 
 
             getEvents() {
+
                 axios.get('/calendar/' + this.$route.params.id)
                     .then(response => {
                         this.events = response.data
                         this.isLoading = false
                     })
                     .catch(e => {
-                        this.$alertify.error(e);
+                        this.$alertify.error('Nie można pobrać wydarzeń');
                     })
             },
 
             deleteEvent() {
+
                 this.$refs['eventModal'].$data.isLoading = true;
                 axios.delete('/event/' + this.event.id)
                     .then((response) => {
@@ -251,10 +253,17 @@
 
 
         },
+        watch:{
+          '$route.params.id':function(){
+              this.events = []
+              this.isLoading = true
+                this.getEvents()
+          }
+        },
         created() {
             this.getEvents()
-            this.setBackgroundColor(1)
-        }
+        },
+
     }
 </script>
 
@@ -310,8 +319,29 @@
             font-size: 12px;
         }
 
+        .fc-toolbar{
+            @media (max-width:767px)
+            {
+                flex-direction: column;
+            }
+        }
+
+        .fc-center{
+            @media (max-width:767px)
+            {
+                margin:5px 0;
+            }
+        }
+
+
         .fc-toolbar h2 {
             font-size: 18px;
+
+
+            @media (max-width:1024px)
+            {
+                font-size:14px;
+            }
         }
 
         .fc-button-primary:focus {
@@ -341,6 +371,16 @@
 
         .fc-time-grid .fc-slats td {
             font-size: 16px;
+
+            @media (max-width:1024px)
+            {
+                font-size:14px;
+            }
+
+            @media (max-width:767px)
+            {
+                font-size:12px;
+            }
 
         }
 

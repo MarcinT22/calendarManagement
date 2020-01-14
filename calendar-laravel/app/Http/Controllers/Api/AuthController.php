@@ -22,10 +22,11 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->password = bcrypt($request->password);
         $user->roles = $request->roles;
-        $calendar = new Calendar;
-        $calendar->save();
-        $user->calendar_id = $calendar->id;
         $user->save();
+        $calendar = new Calendar;
+        $calendar->user_id = $user->id;
+        $calendar->save();
+
 
 
         return response([

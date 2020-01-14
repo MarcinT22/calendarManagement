@@ -72,7 +72,7 @@
                         this.$alertify.error('Użytkownik nie został dodany')
                         this.isLoading=false
                     },
-                    redirect: '/'
+                    redirect: '/users'
                 })
             }
         }

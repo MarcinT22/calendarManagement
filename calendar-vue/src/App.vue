@@ -1,8 +1,11 @@
 <template>
     <div>
         <template v-if="$auth.check()">
-            <div class="dashboard">
+            <div class="dashboard" id="dashboard">
                 <div class="dashboard__left">
+                    <div class="dashboard__close" @click="closeMenu">
+                        <i class="fas fa-times"></i>
+                    </div>
                     <div class="dashboard__header">
                         <h1>
                             <router-link to="/">
@@ -10,7 +13,7 @@
                             </router-link>
                         </h1>
                     </div>
-                    <Menu></Menu>
+                    <Menu ref="menu"></Menu>
                 </div>
                 <div class="dashboard__container">
                     <Top></Top>
@@ -35,6 +38,13 @@
     export default {
         name: 'App',
         components: {Menu, Top},
+        methods:{
+            closeMenu()
+            {
+                let dashboard = document.getElementById('dashboard');
+                dashboard.classList.toggle('dashboard--full')
+            }
+        }
     }
 </script>
 
@@ -53,6 +63,39 @@
         display: flex;
         justify-content: flex-end;
 
+        &--full{
+            .dashboard{
+                &__left{
+                    left:-250px;
+
+                    @media (max-width:1024px)
+                    {
+                        left:0;
+                        transform: translateX(0%);
+                    }
+                }
+
+                &__container{
+                    width:100%;
+
+                }
+            }
+        }
+
+        &__close{
+            position: absolute;
+            right:10px;
+            top:5px;
+            color:#fff;
+            font-size:25px;
+            display: none;
+
+            @media (max-width:1024px)
+            {
+                display: block;
+            }
+        }
+
         &__left {
             width: 250px;
             position: fixed;
@@ -62,18 +105,41 @@
             bottom: 0;
             padding: 15px;
             box-sizing: border-box;
+            transition:left 0.3s ease-in-out;
+
+            @media (max-width:1024px)
+            {
+
+                position: fixed;
+                z-index: 2;
+                width:auto;
+                right:0;
+                left:0;
+                transform: translateX(-100%);
+                transition:transform 0.3s ease-in-out;
+                overflow-y: auto;
+            }
 
         }
 
         &__container {
             width: calc(100% - 250px);
-
-
+            transition:width 0.3s ease-in-out;
+            @media (max-width:1024px)
+            {
+                width:100%;
+            }
         }
 
         &__content {
             padding: 15px;
             box-sizing: border-box;
+
+
+            @media (max-width:1024px)
+            {
+                padding:10px;
+            }
 
         }
 

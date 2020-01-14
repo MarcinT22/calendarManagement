@@ -31,7 +31,6 @@ Route::group(['middleware'=>'jwt.auth'], function(){
     Route::put('calendar/{calendar}', 'Api\CalendarController@update');
     Route::delete('calendar/{calendar}', 'Api\CalendarController@delete');
     Route::get('calendar', 'Api\CalendarController@index');
-
     Route::get('event', 'Api\EventController@index');
     Route::get('event/{event}', 'Api\EventController@show');
     Route::get('events/{calendar}', 'Api\EventController@getByCalendar');
@@ -42,6 +41,9 @@ Route::group(['middleware'=>'jwt.auth'], function(){
     Route::get('future/events/{calendar}/{amount}', 'Api\EventController@getUpcoming');
 
     Route::get('users', 'Api\UserController@index');
+    Route::delete('user/{user}', 'Api\UserController@delete');
 
 });
+
+
 
