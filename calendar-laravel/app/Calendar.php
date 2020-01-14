@@ -11,4 +11,9 @@ class Calendar extends Model
     {
         return $this->hasMany('App\Event');
     }
+
+    public function user()
+    {
+        return $this->hasOne('App\User');
+    }
 }

@@ -21,9 +21,19 @@ class CreateEventsTable extends Migration
             $table->string('end');
             $table->string('backgroundColor')->nullable();
             $table->integer('status')->default(0);
-            $table->integer('calendar_id');
+            $table->bigInteger('calendar_id')->unsigned();
             $table->timestamps();
+
+
+
         });
+
+        Schema::table('events', function($table) {
+            $table->foreign('calendar_id')
+                ->references('id')->on('calendars')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**
