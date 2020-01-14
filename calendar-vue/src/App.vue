@@ -12,8 +12,10 @@
                                 <i class="far fa-calendar-alt"></i> E-Calendar
                             </router-link>
                         </h1>
+                        <span>&copy 2020 Marcin Topolski</span>
                     </div>
                     <Menu ref="menu"></Menu>
+
                 </div>
                 <div class="dashboard__container">
                     <Top></Top>
@@ -145,6 +147,14 @@
 
         &__header {
             padding-bottom: 5px;
+
+            span{
+                font-size:10px;
+                text-align: center;
+                color:#fff;
+                display: block;
+                margin-top:5px;
+            }
 
             h1 {
                 margin: 0;
