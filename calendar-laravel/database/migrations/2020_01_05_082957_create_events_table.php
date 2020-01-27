@@ -23,9 +23,6 @@ class CreateEventsTable extends Migration
             $table->integer('status')->default(0);
             $table->bigInteger('calendar_id')->unsigned();
             $table->timestamps();
-
-
-
         });
 
         Schema::table('events', function($table) {

@@ -39,23 +39,49 @@ class EventController extends Controller
         return response()->json(null, 204);
     }
 
+    /**Get events by calendar
+     * @param $calendar
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function getByCalendar($calendar)
     {
-        return Event::where('calendar_id',$calendar)->get();
+        $events = Event::where('calendar_id',$calendar)->get();
+        return  response()->json($events);
     }
 
+    /**
+     * Get last events
+     * @param $calendar
+     * @param $amount
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function getLast($calendar,$amount)
     {
-        return Event::where('calendar_id',$calendar)->take($amount)->orderBy('id','desc')->get();
+        $events = Event::where('calendar_id',$calendar)->take($amount)->orderBy('id','desc')->get();
+        return response()->json($events);
     }
 
+    /**
+     * Get upcoming events
+     * @param $calendar
+     * @param $amount
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function getUpcoming($calendar,$amount)
     {
-
-        return Event::
+        $events = Event::
         where('calendar_id',$calendar)
-        ->where('start','>',now())
+            ->where('start','>',now())
             ->take($amount)
             ->orderBy('id','desc')->get();
+        return response()->json($events);
     }
+
+
 }

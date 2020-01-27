@@ -14,6 +14,13 @@ use JWTAuth;
 class AuthController extends Controller
 {
 
+    /**
+     * Create new user
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function register(Request $request)
     {
 
@@ -27,14 +34,19 @@ class AuthController extends Controller
         $calendar->user_id = $user->id;
         $calendar->save();
 
-
-
         return response([
             'status' => 'success',
             'data' => $user
         ], 200);
     }
 
+    /**
+     * Login user
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function login(Request $request)
     {
 
@@ -72,6 +84,12 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * Logout user
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function logout()
     {
         JWTAuth::invalidate();

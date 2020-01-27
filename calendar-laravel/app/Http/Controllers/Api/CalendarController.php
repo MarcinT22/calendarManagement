@@ -14,6 +14,13 @@ class CalendarController extends Controller
         return Calendar::all();
     }
 
+    /**Get the calendar with events
+     * @param Calendar $calendar
+     * @return \Illuminate\Http\JsonResponse.
+     * Return data with calendar and events.
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function show(Calendar $calendar)
     {
         $calendar = Calendar::find($calendar->id);
@@ -21,6 +28,13 @@ class CalendarController extends Controller
         return response()->json($events, 201);
     }
 
+    /**
+     * Create calendar
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function store(Request $request)
     {
         $calendar = Calendar::create($request->all());

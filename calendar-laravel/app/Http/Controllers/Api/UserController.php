@@ -8,14 +8,28 @@ use Illuminate\Http\Request;
 use App\User;
 class UserController extends Controller
 {
-    public function index(){
-        return User::all();
-    }
+     /**
+      * Get all list of users
+      * @return \Illuminate\Http\JsonResponse
+      * @author Marcin Topolski
+      * @version 1.0
+      */
+     public function index(){
+         $users = User::all();
+         return response()->json($users);
+     }
 
 
-    public function delete(User $user)
-    {
-        $user->delete();
-        return response()->json(null, 204);
-    }
+      /**
+        * Remove user
+        * @param User $user
+        * @return \Illuminate\Http\JsonResponse
+        * @author Marcin Topolski
+        * @version 1.0
+        */
+       public function delete(User $user)
+       {
+           $user->delete();
+           return response()->json(null, 204);
+       }
 }
