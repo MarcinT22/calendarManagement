@@ -11,7 +11,8 @@ class CalendarController extends Controller
 {
     public function index()
     {
-        return Calendar::all();
+        $calendar =  Calendar::all();
+        return response()->json($calendar,200);
     }
 
     /**Get the calendar with events
