@@ -8,16 +8,35 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    /**Get all events
+     * @return Event[]|\Illuminate\Database\Eloquent\Collection
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function index()
     {
         return Event::all();
     }
 
+    /**
+     * Get the event
+     * @param Event $event
+     * @return Event
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function show(Event $event)
     {
         return $event;
     }
 
+    /**
+     * Create the event
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function store(Request $request)
     {
         $event = Event::create($request->all());
@@ -25,6 +44,14 @@ class EventController extends Controller
         return response()->json($event, 201);
     }
 
+    /**
+     * Update the event
+     * @param Request $request
+     * @param Event $event
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function update(Request $request, Event $event)
     {
         $event->update($request->all());
@@ -32,6 +59,14 @@ class EventController extends Controller
         return response()->json($event, 200);
     }
 
+    /**
+     * Remove the event
+     * @param Event $event
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function delete(Event $event)
     {
         $event->delete();
@@ -48,7 +83,7 @@ class EventController extends Controller
     public function getByCalendar($calendar)
     {
         $events = Event::where('calendar_id',$calendar)->get();
-        return  response()->json($events);
+        return  response()->json($events, 200);
     }
 
     /**
@@ -62,7 +97,7 @@ class EventController extends Controller
     public function getLast($calendar,$amount)
     {
         $events = Event::where('calendar_id',$calendar)->take($amount)->orderBy('id','desc')->get();
-        return response()->json($events);
+        return response()->json($events, 200);
     }
 
     /**
@@ -80,7 +115,7 @@ class EventController extends Controller
             ->where('start','>',now())
             ->take($amount)
             ->orderBy('id','desc')->get();
-        return response()->json($events);
+        return response()->json($events, 200);
     }
 
 

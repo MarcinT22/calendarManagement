@@ -25,11 +25,11 @@ class CalendarController extends Controller
     {
         $calendar = Calendar::find($calendar->id);
         $events = $calendar->events;
-        return response()->json($events, 201);
+        return response()->json($events, 200);
     }
 
     /**
-     * Create calendar
+     * Create the calendar
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @author Marcin Topolski
@@ -42,6 +42,14 @@ class CalendarController extends Controller
         return response()->json($calendar, 201);
     }
 
+    /**
+     * Update the calendar
+     * @param Request $request
+     * @param Calendar $calendar
+     * @return \Illuminate\Http\JsonResponse
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function update(Request $request, Calendar $calendar)
     {
         $calendar->update($request->all());
@@ -49,6 +57,14 @@ class CalendarController extends Controller
         return response()->json($calendar, 200);
     }
 
+    /**
+     * Remove the calendar
+     * @param Calendar $calendar
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     * @author Marcin Topolski
+     * @version 1.0
+     */
     public function delete(Calendar $calendar)
     {
         $calendar->delete();
