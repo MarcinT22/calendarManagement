@@ -114,7 +114,7 @@ class EventController extends Controller
         where('calendar_id',$calendar)
             ->where('start','>',now())
             ->take($amount)
-            ->orderBy('id','desc')->get();
+            ->orderBy('start','desc')->get();
         return response()->json($events, 200);
     }
 
