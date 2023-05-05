@@ -1,3 +1,5 @@
+@import "colors";
+
 .login {
   display: flex;
   flex-direction: column;
@@ -7,54 +9,51 @@
   position: relative;
   z-index: 1;
 
-  @media (max-width:767px)
-  {
+  @media (max-width:767px) {
     display: block;
 
 
   }
 
 
-  &--background{
+  &--background {
     background: url('../assets/images/background.jpg')no-repeat;
-    background-size:cover;
+    background-size: cover;
     background-position: center center;
-    height:100vh;
+    height: 100vh;
     position: relative;
-    padding:0 15px;
+    padding: 0 15px;
 
-    @media (max-width:767px)
-    {
-      height:100vh;
-      padding:15px;
+    @media (max-width:767px) {
+      height: 100vh;
+      padding: 15px;
     }
 
-    &::after{
-      content:'';
+    &::after {
+      content: '';
       display: block;
       position: fixed;
-      top:0;
-      right:0;
-      bottom:0;
-      left:0;
-      background:rgba(0,0,0,0.4);
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.4);
       z-index: 0;
     }
   }
 
 
   h2 {
-    font-family: 'Bitter', serif;
+
     text-align: center;
+    font-size: 24px;
     text-transform: uppercase;
-    font-size: 30px;
     color: #040e2f;
     margin: 0;
-    margin-bottom:30px;
+    margin-bottom: 30px;
 
-    @media (max-width:767px)
-    {
-      font-size:20px;
+    @media (max-width:767px) {
+      font-size: 20px;
       text-align: center;
     }
 
@@ -62,66 +61,62 @@
   }
 
   &__content {
-    width:100%;
+    width: 100%;
     max-width: 400px;
     background: #fff;
-    border-radius: 3px;
+    border-radius: 10px;
     box-shadow: 5px 5px 10px 0 rgba(100, 100, 100, 0.5);
     padding: 50px 20px;
     box-sizing: border-box;
     z-index: 1;
     position: relative;
-    margin-top:80px;
+    margin-top: 80px;
 
-    @media (max-width:767px)
-    {
-      margin-top:50px;
-      padding:40px 15px;
+    @media (max-width:767px) {
+      margin-top: 50px;
+      padding: 40px 15px;
     }
 
 
   }
 
 
-  &__user{
-    font-size:45px;
+  &__user {
+    font-size: 45px;
     position: absolute;
-    top:-50px;
-    left:0;
-    right:0;
-    margin:auto;
-    background:#530008;
-    width:85px;
-    height:85px;
-    border:5px solid #fff;
+    top: -50px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: $blue;
+    width: 85px;
+    height: 85px;
+    border: 3px solid #fff;
     border-radius: 100%;
-    color:#fff;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
 
-    @media (max-width:767px)
-    {
-      font-size:30px;
+    @media (max-width:767px) {
+      font-size: 30px;
       text-align: center;
-      width:65px;
-      height:65px;
-      top:-40px;
+      width: 65px;
+      height: 65px;
+      top: -40px;
     }
   }
 
-  &__header{
-      margin: 0;
-      color: #fff;
-      font-family: Bitter;
-      font-size: 40px;
-      text-shadow: 2px 2px 2px #000;
-      z-index: 1;
-      position: relative;
+  &__header {
+    margin: 0;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 700;
+    z-index: 1;
+    position: relative;
 
-    @media (max-width:767px)
-    {
-      font-size:30px;
+    @media (max-width:767px) {
+      font-size: 30px;
       text-align: center;
     }
 

@@ -1,79 +1,80 @@
-.form{
+@import "colors";
+
+.form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  &__field{
-    width:100%;
-    max-width:250px;
-    margin-bottom:15px;
+  &__field {
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 15px;
     position: relative;
 
 
 
   }
 
-  &__input{
-    width:100%;
-    outline:none;
-    padding:10px;
+  &__input {
+    width: 100%;
+    outline: none;
+    padding: 10px;
     box-sizing: border-box;
-    border:1px solid #a3bace;
+    border: 1px solid $lightBlue;
     color: #040e2f;
-    font-size:14px;
-    font-family: 'Open Sans', sans-serif;
-    border-radius:3px;
+    font-size: 14px;
+    border-radius: 3px;
 
-    &::placeholder{
-      color:#a3bace;
+    &::placeholder {
+      color: $lightBlue;
     }
 
-    &--icon{
-      padding-left:35px;
+    &--icon {
+      padding-left: 35px;
     }
   }
 
-  &__icon{
-    font-size:20px;
-    color:#a3bace;
+  &__icon {
+    font-size: 20px;
+    color: $lightBlue;
     position: absolute;
-    left:10px;
-    top:0;
-    bottom:0;
-    margin:auto;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     display: flex;
     align-items: center;
   }
 
-  &__button{
-    outline:none;
-    border-radius:3px;
+  &__button {
+    outline: none;
+    border-radius: 5px;
     display: block;
-    border:0;
-    background: #530008;
-    font-size:15px;
+    border: 0;
+    background: $blue;
+    font-size: 15px;
     text-transform: uppercase;
     text-align: center;
     box-sizing: border-box;
-    padding:20px;
-    width:100%;
-    max-width:250px;
-    color:#fff;
-    margin-top:15px;
+    padding: 10px 15px;
+    width: 100%;
+    max-width: 250px;
+    color: #fff;
+    margin-top: 15px;
     cursor: pointer;
     font-weight: 600;
-    font-family: 'Open Sans', sans-serif;
-    transition:background 0.3s ease-in-out;
 
-    &:hover{
+    transition: background 0.3s ease-in-out;
+
+    &:hover {
       background: #1d0135;
     }
   }
 
-  &__error{
-    font-size:14px;
-    color: #dc1324;
+  &__error {
+    font-size: 14px;
+    color: $red;
     text-align: center;
   }
 }
