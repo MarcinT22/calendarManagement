@@ -14,5 +14,5 @@ Frontend was created in Vue.js and SCSS.
 ### Backend
 Backend was created in Laravel. 
 
-## Mobile App
+## Web application
 Here you can see how the application works: https://youtu.be/UZjNo5Z8ux4
