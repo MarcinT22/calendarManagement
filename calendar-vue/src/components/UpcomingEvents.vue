@@ -5,7 +5,7 @@
       Nadchodzące wydarzenia
     </h2>
     <div class="loading loading--center" v-if="isLoading"></div>
-    <div class="block__content">
+    <div class="block__content" v-else>
       <div
         v-for="event in upcomingEvents"
         class="block__last"
